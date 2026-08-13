@@ -23,19 +23,25 @@ export const MethodologyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerD
         onOpenRecyclerDash={onOpenRecyclerDash} 
       />
 
-      <main style={{ flex: 1, padding: '40px 0 100px' }}>
-        <div className="container">
-          
-          <div className="page-hero-card methodology-hero">
-            <div className="badge badge-emerald" style={{ marginBottom: '16px', width: 'fit-content' }}>
-              <Sparkles size={14} />
-              <span>Scientific & Logistics Framework</span>
+      <main style={{ flex: 1, padding: '0 0 100px' }}>
+
+        {/* HERO — full-bleed section bg, glassmorphism card inside */}
+        <section className="page-hero-section methodology-hero-bg">
+          <div className="container">
+            <div className="page-hero-card">
+              <div className="badge badge-emerald" style={{ marginBottom: '16px', width: 'fit-content' }}>
+                <Sparkles size={14} />
+                <span>Scientific &amp; Logistics Framework</span>
+              </div>
+              <h1 className="page-hero-title">The EcoTrace Recycling Methodology</h1>
+              <p className="page-hero-desc">
+                A standardized 4-step framework bridging consumer device submission with certified industrial smelting and urban mining recovery.
+              </p>
             </div>
-            <h1 className="page-hero-title">The EcoTrace Recycling Methodology</h1>
-            <p className="page-hero-desc">
-              A standardized 4-step framework bridging consumer device submission with certified industrial smelting and urban mining recovery.
-            </p>
           </div>
+        </section>
+
+        <div className="container">
 
           {/* 4 Steps Methodology Cards with Imagery */}
           <div className="methodology-steps" style={{ marginBottom: '60px' }}>
