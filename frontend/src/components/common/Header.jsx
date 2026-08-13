@@ -90,7 +90,7 @@ export const Header = ({ currentView, onNavigate, onOpenConsumerApp, onOpenRecyc
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div className="mobile-drawer" style={{
-          position: 'absolute',
+          position: 'fixed',
           top: '80px',
           left: 0,
           right: 0,
@@ -100,7 +100,10 @@ export const Header = ({ currentView, onNavigate, onOpenConsumerApp, onOpenRecyc
           display: 'flex',
           flexDirection: 'column',
           gap: '12px',
-          zIndex: 99
+          zIndex: 9999,
+          boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+          maxHeight: 'calc(100vh - 80px)',
+          overflowY: 'auto'
         }}>
           {navItems.map((item) => (
             <button
