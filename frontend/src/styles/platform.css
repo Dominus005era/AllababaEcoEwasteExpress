@@ -364,38 +364,84 @@
   color: var(--text-secondary);
 }
 
-/* Animations */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Mobile Responsiveness Rules for Platform Page */
+@media (max-width: 768px) {
+  .platform-main {
+    padding: 20px 0 60px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .journey-toggle-container {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
   }
-}
-
-.animate-slide-up {
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes pulseRed {
-  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-}
-
-.pulse-red-ring {
-  animation: pulseRed 2s infinite;
-}
-
-@keyframes pulseGreen {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-.pulse-green-ring {
-  animation: pulseGreen 2s infinite;
+  .journey-toggle-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+  }
+  .timeline-stages-wrapper {
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+  .timeline-stages-nav {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+    overflow-x: auto;
+    width: 100%;
+    padding: 10px 4px;
+    WebkitOverflowScrolling: touch;
+  }
+  .timeline-stages-nav::before {
+    display: none;
+  }
+  .timeline-nav-step {
+    min-width: 76px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .timeline-nav-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  .timeline-nav-label {
+    font-size: 0.7rem;
+  }
+  .timeline-comparison-panel {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+  .panel-card {
+    padding: 20px 16px;
+  }
+  .journey-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+  .journey-column {
+    padding: 20px 16px;
+  }
+  .journey-step-card {
+    padding: 14px;
+    gap: 12px;
+    flex-direction: column;
+  }
+  .step-marker {
+    width: 44px;
+    height: 44px;
+  }
+  .yield-comparison-banner {
+    padding: 24px 16px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+  .stats-grid-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
 }

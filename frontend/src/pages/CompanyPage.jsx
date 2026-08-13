@@ -293,7 +293,7 @@ export const CompanyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }} className="metrics-grid">
+            <div className="company-gallery-grid metrics-grid">
               {galleryImages.map((img, i) => (
                 <div key={i} className="feature-card" style={{ padding: '0', overflow: 'hidden', borderRadius: 'var(--radius-md)', height: '220px', position: 'relative' }}>
                   <img src={img.url} alt={img.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} />
