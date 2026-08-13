@@ -1,7 +1,10 @@
 /* platform.css - Clean, Responsive Platform Transformation Styling */
 
-/* Full-bleed hero section — image on the SECTION, exactly like .hero-section in landing page */
+/* Full-bleed hero section — same height as landing page .hero-section */
 .platform-page-hero {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
   padding: 90px 0 110px;
   position: relative;
   overflow: hidden;
@@ -10,6 +13,10 @@
     url("/platform_hero_bg.jpg") center/cover no-repeat;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 40px;
+}
+
+.platform-page-hero .container {
+  width: 100%;
 }
 
 [data-theme='light'] .platform-page-hero {

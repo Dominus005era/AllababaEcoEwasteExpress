@@ -856,13 +856,20 @@
   }
 }
 
-/* Full-bleed hero section — bg image on SECTION, same as .hero-section in landing page */
+/* Full-bleed hero section — same height as landing page .hero-section */
 .page-hero-section {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
   padding: 90px 0 110px;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 40px;
+}
+
+.page-hero-section .container {
+  width: 100%;
 }
 
 .page-hero-section.methodology-hero-bg {
