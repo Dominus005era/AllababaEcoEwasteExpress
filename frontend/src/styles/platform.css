@@ -1,32 +1,31 @@
 /* platform.css - Clean, Responsive Platform Transformation Styling */
 
+/* Platform page full-page background */
+.platform-page-wrapper {
+  background:
+    url("/platform_hero_bg.jpg") center/cover no-repeat;
+  background-attachment: scroll;
+}
+
 .platform-hero-card {
   background: 
     linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.88)), 
     url("/platform_hero_bg.jpg") center/cover no-repeat;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 64px 44px;
+  padding: 90px 44px 110px;
   margin-bottom: 48px;
   box-shadow: var(--shadow-lg);
   color: #FFFFFF;
 }
 
-.platform-hero-title {
-  font-size: 2.8rem;
-  font-weight: 800;
-  line-height: 1.15;
-  margin-bottom: 16px;
-  color: #FFFFFF !important;
+/* Alt card uses a different Unsplash e-waste image */
+.platform-card-alt {
+  background: 
+    linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.86)), 
+    url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1920&auto=format&fit=crop") center/cover no-repeat !important;
 }
 
-.platform-hero-desc {
-  font-size: 1.1rem;
-  color: #CBD5E1 !important;
-  max-width: 750px;
-  line-height: 1.6;
-  margin-bottom: 28px;
-}
 
 .platform-hero-title {
   font-size: 2.6rem;

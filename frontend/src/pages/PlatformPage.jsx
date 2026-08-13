@@ -169,7 +169,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
         <div className="container">
           
           {/* HERO BANNER */}
-          <div className="platform-hero-card">
+          <div className="platform-hero-card platform-card-alt">
             <div className="badge badge-emerald" style={{ marginBottom: '14px', width: 'fit-content' }}>
               <Sparkles size={14} />
               <span>Interactive E-Waste Transformation Engine</span>
@@ -238,13 +238,12 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
             
             {/* Top Stage Header & Controls */}
             <div className="comparison-card-header">
-              <div>
-                <span className="badge badge-emerald" style={{ fontSize: '0.75rem', marginBottom: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                <span className="badge badge-emerald" style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
                   STAGE {activeStage.id} OF 05 • {activeStage.stageName.toUpperCase()}
                 </span>
-                <h2 style={{ fontSize: '1.4rem', fontWeight: '800' }}>{activeStage.stageName}</h2>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: '800', margin: 0 }}>{activeStage.stageName}</h2>
               </div>
-
             </div>
 
             {/* DUAL COMPARISON GRID (Side-by-Side on Desktop, Stacked cleanly on Mobile) */}
