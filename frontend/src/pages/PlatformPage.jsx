@@ -22,7 +22,7 @@ import {
   Smartphone, 
   LayoutDashboard,
   TrendingUp,
-  RefreshCw
+  ListFilter
 } from 'lucide-react';
 
 export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) => {
@@ -195,8 +195,8 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
             </div>
           </div>
 
-          {/* STAGE SELECTOR TABS BAR (100% Touch Scrollable) */}
-          <div className="platform-stage-tabs-wrapper">
+          {/* DESKTOP STAGE SELECTOR TABS */}
+          <div className="platform-stage-tabs-wrapper desktop-only-tabs">
             <div className="platform-stage-tabs">
               {steps.map((st, idx) => {
                 const isActive = currentStep === idx;
@@ -212,6 +212,25 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
                 );
               })}
             </div>
+          </div>
+
+          {/* MOBILE DROPDOWN STAGE SELECTOR (100% Clean Mobile UX) */}
+          <div className="mobile-stage-selector-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--emerald-primary)', fontWeight: '700', fontSize: '0.85rem', marginBottom: '8px' }}>
+              <ListFilter size={16} />
+              <span>SELECT LIFECYCLE STAGE ({currentStep + 1} OF 5):</span>
+            </div>
+            <select 
+              value={currentStep} 
+              onChange={(e) => setCurrentStep(Number(e.target.value))}
+              className="mobile-stage-select"
+            >
+              {steps.map((st, idx) => (
+                <option key={st.id} value={idx}>
+                  {st.id}. {st.stageName}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* MAIN DUAL COMPARISON STAGE SHOWCASE */}

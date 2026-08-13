@@ -254,8 +254,37 @@
   text-align: center;
 }
 
+.mobile-stage-selector-card {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--emerald-primary);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px var(--emerald-glow);
+}
+
+.mobile-stage-select {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+}
+
 /* MOBILE RESPONSIVENESS OVERRIDES */
 @media (max-width: 768px) {
+  .desktop-only-tabs {
+    display: none !important;
+  }
+  .mobile-stage-selector-card {
+    display: block;
+  }
   .platform-hero-card {
     padding: 24px 16px;
     margin-bottom: 24px;
@@ -265,27 +294,6 @@
   }
   .platform-hero-desc {
     font-size: 0.92rem;
-  }
-  .platform-stage-tabs-wrapper {
-    overflow-x: visible;
-    margin-bottom: 16px;
-  }
-  .platform-stage-tabs {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    width: 100%;
-    min-width: 100%;
-    padding: 6px;
-    border-radius: var(--radius-md);
-  }
-  .stage-tab-btn {
-    padding: 8px 6px;
-    font-size: 0.75rem;
-    justify-content: center;
-    text-align: center;
-    border-radius: var(--radius-sm);
-    white-space: normal;
   }
   .comparison-master-card {
     padding: 16px;
