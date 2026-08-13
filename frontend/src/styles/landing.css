@@ -831,9 +831,15 @@
 .desktop-feature-list {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+.desktop-feature-items-container {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 12px;
-  height: 100%;
+  flex: 1;
 }
 
 .desktop-feature-item {

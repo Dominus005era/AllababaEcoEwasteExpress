@@ -154,30 +154,32 @@ export const SpiralStairwayFeatures = ({ onNavigate, onOpenConsumerApp, onOpenRe
             <span>ENTERPRISE PILLARS</span>
           </div>
 
-          {features.map((f, idx) => {
-            const isActive = activeIndex === idx;
-            const FIcon = f.icon;
+          <div className="desktop-feature-items-container">
+            {features.map((f, idx) => {
+              const isActive = activeIndex === idx;
+              const FIcon = f.icon;
 
-            return (
-              <button
-                key={f.id}
-                onClick={() => setActiveIndex(idx)}
-                className={`desktop-feature-item ${isActive ? 'active' : ''}`}
-              >
-                <div className="step-badge-num">
-                  {f.id}
-                </div>
-
-                <div style={{ flex: 1 }}>
-                  <div className="step-item-title">
-                    {f.title}
+              return (
+                <button
+                  key={f.id}
+                  onClick={() => setActiveIndex(idx)}
+                  className={`desktop-feature-item ${isActive ? 'active' : ''}`}
+                >
+                  <div className="step-badge-num">
+                    {f.id}
                   </div>
-                </div>
 
-                <FIcon size={16} color={isActive ? '#10B981' : 'var(--text-muted)'} />
-              </button>
-            );
-          })}
+                  <div style={{ flex: 1 }}>
+                    <div className="step-item-title">
+                      {f.title}
+                    </div>
+                  </div>
+
+                  <FIcon size={16} color={isActive ? '#10B981' : 'var(--text-muted)'} />
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* RIGHT FEATURE SPOTLIGHT DISPLAY (Stretched Height & Clean Mobile Card) */}
