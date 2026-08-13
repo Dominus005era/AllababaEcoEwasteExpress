@@ -169,7 +169,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
         <div className="container">
           
           {/* HERO BANNER */}
-          <div className="platform-hero-card platform-card-alt">
+          <div className="platform-hero-card">
             <div className="badge badge-emerald" style={{ marginBottom: '14px', width: 'fit-content' }}>
               <Sparkles size={14} />
               <span>Interactive E-Waste Transformation Engine</span>
