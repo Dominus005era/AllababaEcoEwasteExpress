@@ -245,7 +245,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
             <div className="comparison-card-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
                 <span className="badge badge-emerald" style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
-                  STAGE {activeStage.id} OF 05 • {activeStage.stageName.toUpperCase()}
+                  STAGE {activeStage.id} OF 05
                 </span>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: '800', margin: 0 }}>{activeStage.stageName}</h2>
               </div>
