@@ -78,35 +78,22 @@ export const CompanyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
         onOpenRecyclerDash={onOpenRecyclerDash} 
       />
 
-      <main style={{ flex: 1, padding: '40px 0 100px' }}>
-        <div className="container">
-          
-          {/* HERO SECTION */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.9)), url("https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop") center/cover',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-lg)',
-            padding: '60px 40px',
-            marginBottom: '48px',
-            position: 'relative',
-            overflow: 'hidden',
-            boxShadow: 'var(--shadow-lg)',
-            color: '#FFFFFF'
-          }}>
-            <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px' }}>
+      <main style={{ flex: 1, padding: '0 0 100px' }}>
+
+        {/* HERO — full-bleed section bg, glassmorphism card inside */}
+        <section className="page-hero-section company-hero-bg">
+          <div className="container">
+            <div className="page-hero-card">
               <div className="badge badge-emerald" style={{ marginBottom: '20px' }}>
                 <Sparkles size={14} />
-                <span>Corporate B2B ESG & Industrial Recycling Alliance</span>
+                <span>Corporate B2B ESG &amp; Industrial Recycling Alliance</span>
               </div>
-              
-              <h1 style={{ fontSize: '3rem', fontWeight: '800', lineHeight: '1.15', marginBottom: '20px', color: '#FFFFFF' }}>
-                Enterprise Solutions & <span className="gradient-text">EPR Compliance</span>
+              <h1 className="page-hero-title">
+                Enterprise Solutions &amp; <span className="gradient-text">EPR Compliance</span>
               </h1>
-              
-              <p style={{ fontSize: '1.15rem', color: '#CBD5E1', lineHeight: '1.7', marginBottom: '32px' }}>
+              <p className="page-hero-desc" style={{ marginBottom: '32px' }}>
                 EcoTrace connects electronics OEMs, tech parks, and corporate enterprises with verified industrial smelters. We replace informal dumping with automated CPCB compliance, audit-ready carbon credits, and zero-landfill guarantees.
               </p>
-
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 <button className="btn btn-primary btn-lg" onClick={onOpenRecyclerDash}>
                   <Building2 size={20} />
@@ -120,6 +107,9 @@ export const CompanyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
               </div>
             </div>
           </div>
+        </section>
+
+        <div className="container">
 
           {/* DYNAMIC METRIC CHIPS BAR */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '60px' }} className="metrics-grid">

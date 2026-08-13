@@ -70,29 +70,25 @@ export const MissionPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
         onOpenRecyclerDash={onOpenRecyclerDash} 
       />
 
-      <main style={{ flex: 1, padding: '60px 0 100px' }}>
-        <div className="container">
-          
-          {/* Hero Banner */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.9)), url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop") center/cover',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-lg)',
-            padding: '56px 40px',
-            marginBottom: '48px',
-            color: '#FFFFFF'
-          }}>
-            <div className="badge badge-emerald" style={{ marginBottom: '16px' }}>
-              <Globe size={14} />
-              <span>Founded in Prayagraj, Uttar Pradesh, India • SIH 2026 (PS-33)</span>
+      <main style={{ flex: 1, padding: '0 0 100px' }}>
+
+        {/* HERO — full-bleed section bg, glassmorphism card inside */}
+        <section className="page-hero-section mission-hero-bg">
+          <div className="container">
+            <div className="page-hero-card">
+              <div className="badge badge-emerald" style={{ marginBottom: '16px' }}>
+                <Globe size={14} />
+                <span>Founded in Prayagraj, Uttar Pradesh, India • SIH 2026 (PS-33)</span>
+              </div>
+              <h1 className="page-hero-title">Our Mission &amp; Student Founders</h1>
+              <p className="page-hero-desc">
+                Pioneered in Prayagraj, Uttar Pradesh, EcoTrace was built by 6 student leads to transform India's informal e-waste disposal into an AI-powered circular economy.
+              </p>
             </div>
-            <h1 style={{ fontSize: '2.8rem', fontWeight: '800', marginBottom: '16px', color: '#FFFFFF' }}>
-              Our Mission & Student Founders
-            </h1>
-            <p style={{ fontSize: '1.15rem', color: '#CBD5E1', maxWidth: '750px', lineHeight: '1.6' }}>
-              Pioneered in Prayagraj, Uttar Pradesh, EcoTrace was built by 6 student leads to transform India's informal e-waste disposal into an AI-powered circular economy.
-            </p>
           </div>
+        </section>
+
+        <div className="container">
 
           {/* Core Philosophy Section */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '60px' }} className="blog-grid">

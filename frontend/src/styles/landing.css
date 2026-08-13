@@ -901,6 +901,30 @@
     url("/community_hero_bg.jpg") center/cover no-repeat;
 }
 
+.page-hero-section.mission-hero-bg {
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
+    url("/mission_hero_bg.jpg") center/cover no-repeat;
+}
+
+[data-theme='light'] .page-hero-section.mission-hero-bg {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
+    url("/mission_hero_bg.jpg") center/cover no-repeat;
+}
+
+.page-hero-section.company-hero-bg {
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
+    url("/company_hero_bg.jpg") center/cover no-repeat;
+}
+
+[data-theme='light'] .page-hero-section.company-hero-bg {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
+    url("/company_hero_bg.jpg") center/cover no-repeat;
+}
+
 /* Glassmorphism text card — mirrors .hero-content + .platform-hero-card */
 .page-hero-card {
   display: flex;
