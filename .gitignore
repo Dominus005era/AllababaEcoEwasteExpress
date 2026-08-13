@@ -8,10 +8,9 @@ dist/
 frontend/dist/
 build/
 
-# Heavy Media / Binary Files
-*.mp4
-*.zip
-*.tar.gz
+# Ignore root video file, but KEEP frontend public demo video
+🥇_PS_—_AI_Smart_E_Waste_Cl.mp4
+!frontend/public/demo.mp4
 
 # Environment & Logs
 .env
