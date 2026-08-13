@@ -245,14 +245,6 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
                 <h2 style={{ fontSize: '1.4rem', fontWeight: '800' }}>{activeStage.stageName}</h2>
               </div>
 
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button onClick={handlePrev} className="btn btn-secondary btn-sm" style={{ padding: '8px', borderRadius: '50%' }} title="Previous Stage">
-                  <ChevronLeft size={18} />
-                </button>
-                <button onClick={handleNext} className="btn btn-secondary btn-sm" style={{ padding: '8px', borderRadius: '50%' }} title="Next Stage">
-                  <ChevronRight size={18} />
-                </button>
-              </div>
             </div>
 
             {/* DUAL COMPARISON GRID (Side-by-Side on Desktop, Stacked cleanly on Mobile) */}
