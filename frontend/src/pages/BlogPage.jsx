@@ -159,14 +159,14 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
       <main style={{ flex: 1, padding: '60px 0 100px' }}>
         <div className="container">
           
-          {/* Header */}
-          <div className="section-header">
-            <div className="badge badge-emerald" style={{ marginBottom: '16px' }}>
+          {/* Header Hero Banner */}
+          <div className="page-hero-card blog-hero">
+            <div className="badge badge-emerald" style={{ marginBottom: '16px', width: 'fit-content' }}>
               <BookOpen size={14} />
               <span>EcoTrace Knowledge Hub (12 Visual Articles)</span>
             </div>
-            <h1 className="section-title">Research Papers, Policy & AI Insights</h1>
-            <p className="section-description">
+            <h1 className="page-hero-title">Research Papers, Policy & AI Insights</h1>
+            <p className="page-hero-desc">
               Explore in-depth technical analysis, urban mining benchmarks, and environmental policy guidelines written by the EcoTrace research team.
             </p>
           </div>

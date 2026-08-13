@@ -1,7 +1,9 @@
 /* platform.css - Clean, Responsive Platform Transformation Styling */
 
 .platform-hero-card {
-  background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.9)), url("https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop") center/cover;
+  background: 
+    linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(30, 41, 59, 0.75)), 
+    url("/platform_hero_bg.jpg") center/cover no-repeat;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 44px 32px;
@@ -10,20 +12,36 @@
   color: #FFFFFF;
 }
 
+[data-theme='light'] .platform-hero-card {
+  background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(241, 245, 249, 0.88)), 
+    url("/platform_hero_bg.jpg") center/cover no-repeat;
+  color: #0F172A;
+}
+
 .platform-hero-title {
   font-size: 2.6rem;
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 14px;
-  color: #FFFFFF;
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .platform-hero-title {
+  color: #0F172A;
 }
 
 .platform-hero-desc {
   font-size: 1.05rem;
-  color: #CBD5E1;
+  color: var(--text-secondary);
   max-width: 750px;
   line-height: 1.6;
   margin-bottom: 28px;
+}
+
+[data-theme='light'] .platform-hero-desc {
+  color: #334155;
+  font-weight: 500;
 }
 
 /* STAGE TAB SELECTOR BAR */

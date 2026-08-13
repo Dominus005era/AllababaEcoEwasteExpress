@@ -25,20 +25,13 @@ export const MethodologyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerD
 
       <main style={{ flex: 1, padding: '60px 0 100px' }}>
         <div className="container">
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.9)), url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop") center/cover',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-lg)',
-            padding: '56px 40px',
-            marginBottom: '48px',
-            color: '#FFFFFF'
-          }}>
+          <div className="page-hero-card methodology-hero">
             <div className="badge badge-emerald" style={{ marginBottom: '16px' }}>
               <Sparkles size={14} />
               <span>Scientific & Logistics Framework</span>
             </div>
-            <h1 style={{ fontSize: '2.8rem', fontWeight: '800', marginBottom: '16px', color: '#FFFFFF' }}>The EcoTrace Recycling Methodology</h1>
-            <p style={{ fontSize: '1.15rem', color: '#CBD5E1', maxWidth: '750px', lineHeight: '1.6' }}>
+            <h1 className="page-hero-title">The EcoTrace Recycling Methodology</h1>
+            <p className="page-hero-desc">
               A standardized 4-step framework bridging consumer device submission with certified industrial smelting and urban mining recovery.
             </p>
           </div>

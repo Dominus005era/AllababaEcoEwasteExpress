@@ -100,14 +100,14 @@ export const CommunityPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDas
       <main style={{ flex: 1, padding: '60px 0 100px' }}>
         <div className="container">
           
-          {/* Header */}
-          <div className="section-header">
-            <div className="badge badge-emerald" style={{ marginBottom: '16px' }}>
+          {/* Header Hero Banner */}
+          <div className="page-hero-card community-hero">
+            <div className="badge badge-emerald" style={{ marginBottom: '16px', width: 'fit-content' }}>
               <Radio size={14} />
               <span>Live Community & E-Waste News Hub</span>
             </div>
-            <h1 className="section-title">Global & National E-Waste Movements</h1>
-            <p className="section-description">
+            <h1 className="page-hero-title">Global & National E-Waste Movements</h1>
+            <p className="page-hero-desc">
               Stay updated with live environmental news feeds, campus collection drives, and corporate ESG initiatives powering the circular revolution across India.
             </p>
           </div>
