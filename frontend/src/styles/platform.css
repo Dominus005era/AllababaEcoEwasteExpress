@@ -1,31 +1,68 @@
 /* platform.css - Clean, Responsive Platform Transformation Styling */
 
-.platform-hero-card {
-  background: 
-    linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.88)), 
+/* Full-bleed hero section — image on the SECTION, exactly like .hero-section in landing page */
+.platform-page-hero {
+  padding: 90px 0 110px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
     url("/platform_hero_bg.jpg") center/cover no-repeat;
-  border: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 40px;
+}
+
+[data-theme='light'] .platform-page-hero {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
+    url("/platform_hero_bg.jpg") center/cover no-repeat;
+}
+
+/* Glassmorphism text card inside section — mirrors .hero-content in landing page */
+.platform-hero-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 44px 40px;
   border-radius: var(--radius-lg);
-  padding: 64px 44px;
-  margin-bottom: 48px;
-  box-shadow: var(--shadow-lg);
-  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  max-width: 780px;
+  margin-bottom: 0;
+}
+
+[data-theme='light'] .platform-hero-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
 }
 
 .platform-hero-title {
   font-size: 2.8rem;
   font-weight: 800;
   line-height: 1.15;
-  margin-bottom: 16px;
-  color: #FFFFFF !important;
+  margin: 12px 0 16px;
+  color: #FFFFFF;
+}
+
+[data-theme='light'] .platform-hero-title {
+  color: #0F172A;
 }
 
 .platform-hero-desc {
   font-size: 1.1rem;
-  color: #CBD5E1 !important;
-  max-width: 750px;
-  line-height: 1.6;
+  color: #CBD5E1;
+  max-width: 680px;
+  line-height: 1.65;
   margin-bottom: 28px;
+}
+
+[data-theme='light'] .platform-hero-desc {
+  color: #334155;
+  font-weight: 500;
 }
 
 .platform-hero-title {
