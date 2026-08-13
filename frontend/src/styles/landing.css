@@ -856,54 +856,80 @@
   }
 }
 
-/* Shared Sub-Page Hero Banner Styling */
-.page-hero-card {
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 56px 40px;
-  margin-bottom: 48px;
-  box-shadow: var(--shadow-lg);
-  color: #FFFFFF;
+/* Full-Bleed Sub-Page Hero Banner Backgrounds */
+.subpage-hero-section {
+  padding: 60px 0 40px;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 40px;
+}
+
+.subpage-hero-section.platform-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
+    url("/platform_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+[data-theme='light'] .subpage-hero-section.platform-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
+    url("/platform_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+.subpage-hero-section.methodology-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
+    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+[data-theme='light'] .subpage-hero-section.methodology-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
+    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+.subpage-hero-section.blog-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
+    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+[data-theme='light'] .subpage-hero-section.blog-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
+    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+.subpage-hero-section.community-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
+    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+[data-theme='light'] .subpage-hero-section.community-hero-bg {
+  background: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
+    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
+}
+
+/* Colored Glassmorphism Inner Card */
+.page-hero-card {
+  background: rgba(15, 23, 42, 0.76);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-lg);
+  padding: 52px 40px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
 }
 
-.page-hero-card.methodology-hero {
-  background: 
-    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.80)),
-    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-[data-theme='light'] .page-hero-card.methodology-hero {
-  background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(241, 245, 249, 0.86)),
-    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-.page-hero-card.blog-hero {
-  background: 
-    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.80)),
-    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-[data-theme='light'] .page-hero-card.blog-hero {
-  background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(241, 245, 249, 0.86)),
-    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-.page-hero-card.community-hero {
-  background: 
-    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.80)),
-    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-[data-theme='light'] .page-hero-card.community-hero {
-  background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(241, 245, 249, 0.86)),
-    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
+[data-theme='light'] .page-hero-card {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  color: #0F172A;
 }
 
 .page-hero-title {

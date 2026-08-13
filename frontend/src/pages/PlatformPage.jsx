@@ -165,35 +165,40 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
         onOpenRecyclerDash={onOpenRecyclerDash} 
       />
 
-      <main style={{ flex: 1, padding: '32px 0 80px' }}>
-        <div className="container">
-          
-          {/* HERO BANNER */}
-          <div className="platform-hero-card">
-            <div className="badge badge-emerald" style={{ marginBottom: '14px', width: 'fit-content' }}>
-              <Sparkles size={14} />
-              <span>Interactive E-Waste Transformation Engine</span>
-            </div>
-            
-            <h1 className="platform-hero-title">
-              E-Waste Transformation <span className="gradient-text">Before vs. After</span> EcoTrace
-            </h1>
-            
-            <p className="platform-hero-desc">
-              Compare the environmental, financial, and regulatory realities of electronic waste. Track how informal scrap chains cause toxic pollution, while EcoTrace AI guarantees a safe, circular pathway.
-            </p>
+      <main style={{ flex: 1, padding: '0 0 80px' }}>
+        
+        {/* HERO BANNER SECTION WITH FULL-BLEED FIXED BACKGROUND */}
+        <section className="subpage-hero-section platform-hero-bg">
+          <div className="container">
+            <div className="platform-hero-card">
+              <div className="badge badge-emerald" style={{ marginBottom: '14px', width: 'fit-content' }}>
+                <Sparkles size={14} />
+                <span>Interactive E-Waste Transformation Engine</span>
+              </div>
+              
+              <h1 className="platform-hero-title">
+                E-Waste Transformation <span className="gradient-text">Before vs. After</span> EcoTrace
+              </h1>
+              
+              <p className="platform-hero-desc">
+                Compare the environmental, financial, and regulatory realities of electronic waste. Track how informal scrap chains cause toxic pollution, while EcoTrace AI guarantees a safe, circular pathway.
+              </p>
 
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-              <button className="btn btn-primary" onClick={onOpenConsumerApp}>
-                <Smartphone size={18} />
-                <span>Test Camera Scanner</span>
-              </button>
-              <button className="btn btn-secondary" onClick={onOpenRecyclerDash}>
-                <LayoutDashboard size={18} />
-                <span>Open Recycler Dashboard</span>
-              </button>
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+                <button className="btn btn-primary" onClick={onOpenConsumerApp}>
+                  <Smartphone size={18} />
+                  <span>Test Camera Scanner</span>
+                </button>
+                <button className="btn btn-secondary" onClick={onOpenRecyclerDash}>
+                  <LayoutDashboard size={18} />
+                  <span>Open Recycler Dashboard</span>
+                </button>
+              </div>
             </div>
           </div>
+        </section>
+
+        <div className="container">
 
           {/* DESKTOP STAGE SELECTOR TABS */}
           <div className="platform-stage-tabs-wrapper desktop-only-tabs">

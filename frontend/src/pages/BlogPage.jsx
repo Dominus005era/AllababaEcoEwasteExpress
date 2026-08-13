@@ -156,20 +156,25 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
         onOpenRecyclerDash={onOpenRecyclerDash} 
       />
 
-      <main style={{ flex: 1, padding: '60px 0 100px' }}>
-        <div className="container">
-          
-          {/* Header Hero Banner */}
-          <div className="page-hero-card blog-hero">
-            <div className="badge badge-emerald" style={{ marginBottom: '16px', width: 'fit-content' }}>
-              <BookOpen size={14} />
-              <span>EcoTrace Knowledge Hub (12 Visual Articles)</span>
+      <main style={{ flex: 1, padding: '0 0 100px' }}>
+        
+        {/* HERO BANNER SECTION WITH FULL-BLEED FIXED BACKGROUND */}
+        <section className="subpage-hero-section blog-hero-bg">
+          <div className="container">
+            <div className="page-hero-card">
+              <div className="badge badge-emerald" style={{ marginBottom: '16px', width: 'fit-content' }}>
+                <BookOpen size={14} />
+                <span>EcoTrace Knowledge Hub (12 Visual Articles)</span>
+              </div>
+              <h1 className="page-hero-title">Research Papers, Policy & AI Insights</h1>
+              <p className="page-hero-desc">
+                Explore in-depth technical analysis, urban mining benchmarks, and environmental policy guidelines written by the EcoTrace research team.
+              </p>
             </div>
-            <h1 className="page-hero-title">Research Papers, Policy & AI Insights</h1>
-            <p className="page-hero-desc">
-              Explore in-depth technical analysis, urban mining benchmarks, and environmental policy guidelines written by the EcoTrace research team.
-            </p>
           </div>
+        </section>
+
+        <div className="container">
 
           {/* Category Filter Pills */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '48px' }}>
