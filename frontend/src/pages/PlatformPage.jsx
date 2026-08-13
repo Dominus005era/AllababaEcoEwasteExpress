@@ -351,7 +351,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
           </div>
 
           {/* PLATFORM PROCESS DEMO VIDEO */}
-          <div style={{
+          <div className="video-card-wrapper" style={{
             marginBottom: '48px',
             borderRadius: 'var(--radius-lg)',
             overflow: 'hidden',

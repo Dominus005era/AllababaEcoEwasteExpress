@@ -225,7 +225,7 @@ export const CommunityPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDas
           </div>
 
           {/* COMMUNITY ACTION & DRIVE VIDEO DEMONSTRATION */}
-          <div style={{
+          <div className="video-card-wrapper" style={{
             marginBottom: '60px',
             borderRadius: 'var(--radius-lg)',
             overflow: 'hidden',

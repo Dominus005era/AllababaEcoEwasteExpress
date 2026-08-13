@@ -317,12 +317,12 @@ export const CompanyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
                 return (
                   <div 
                     key={faq.id} 
+                    className="faq-card-wrapper"
                     style={{
                       background: 'var(--bg-card)',
                       border: '1px solid var(--border-color)',
                       borderRadius: 'var(--radius-md)',
-                      overflow: 'hidden',
-                      transition: 'all var(--transition-fast)'
+                      overflow: 'hidden'
                     }}
                   >
                     <button 

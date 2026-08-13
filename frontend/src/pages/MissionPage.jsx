@@ -157,7 +157,7 @@ export const MissionPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
           </div>
 
           {/* Research Benchmarks */}
-          <div style={{
+          <div className="benchmark-card-box" style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border-color)',
             borderRadius: 'var(--radius-lg)',
