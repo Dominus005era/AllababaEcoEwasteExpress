@@ -313,9 +313,16 @@
     gap: 12px;
   }
   .comparison-bottom-bar {
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    justify-content: space-between !important;
+    width: 100%;
+    padding-top: 14px;
+  }
+  .comparison-bottom-bar .btn {
+    padding: 6px 10px !important;
+    font-size: 0.78rem !important;
+    flex-shrink: 0;
   }
 }
 
