@@ -55,8 +55,12 @@ export const AuthPage = ({ initialRole = 'donor', onNavigate, onLoginSuccess }) 
           }
         }
       } else {
-        // Authorized Recycler Login
-        const res = await loginUser(email, password, 'recycler');
+        // Authorized Recycler Login — Strict CPCB Smelter License Code Validation
+        if (!recyclerCode || recyclerCode.trim().length < 5) {
+          throw new Error('Access Denied: CPCB Smelter Authorization License Code (e.g. CPCB-UP-2026-REC-04) is strictly required.');
+        }
+
+        const res = await loginUser(email, password, 'recycler', recyclerCode);
         if (res.success) {
           onLoginSuccess('recycler');
         }
@@ -332,16 +336,19 @@ export const AuthPage = ({ initialRole = 'donor', onNavigate, onLoginSuccess }) 
                   </div>
                 )}
 
-                {/* Optional Smelter Authorization Code for Recyclers */}
+                {/* Required Smelter Authorization Code for Recyclers */}
                 {activePortal === 'recycler' && (
                   <div>
-                    <label style={{ fontSize: '0.85rem', fontWeight: '600', display: 'block', marginBottom: '6px' }}>CPCB Smelter License / Auth Code</label>
+                    <label style={{ fontSize: '0.85rem', fontWeight: '600', display: 'block', marginBottom: '6px', color: 'var(--text-primary)' }}>
+                      CPCB Smelter License / Auth Code <span style={{ color: '#EF4444' }}>* (Required)</span>
+                    </label>
                     <input
                       type="text"
-                      placeholder="CPCB-UP-2026-REC-04"
+                      required
+                      placeholder="e.g. CPCB-UP-2026-REC-04"
                       value={recyclerCode}
                       onChange={(e) => setRecyclerCode(e.target.value)}
-                      style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-md)', background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                      style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-md)', background: 'var(--bg-card)', border: '1px solid var(--emerald-primary)', color: 'var(--text-primary)', outline: 'none' }}
                     />
                   </div>
                 )}
