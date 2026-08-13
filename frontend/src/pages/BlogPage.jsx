@@ -37,7 +37,7 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
       author: 'Ayush Yadav',
       date: 'August 05, 2026',
       readTime: '6 min read',
-      coverImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=800&auto=format&fit=crop'
+      coverImage: 'https://images.unsplash.com/photo-1558441719-670b357029bc?q=80&w=800&auto=format&fit=crop'
     },
     {
       id: 3,
@@ -57,7 +57,7 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
       author: 'Ashmit Verma',
       date: 'August 08, 2026',
       readTime: '9 min read',
-      coverImage: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop'
+      coverImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop'
     },
     {
       id: 5,
@@ -67,7 +67,7 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
       author: 'Md. Umar Zahid',
       date: 'August 02, 2026',
       readTime: '8 min read',
-      coverImage: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=800&auto=format&fit=crop'
+      coverImage: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800&auto=format&fit=crop'
     },
     {
       id: 6,
@@ -77,7 +77,7 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
       author: 'Tanay Singh',
       date: 'July 22, 2026',
       readTime: '7 min read',
-      coverImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop'
+      coverImage: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=800&auto=format&fit=crop'
     },
     {
       id: 7,
@@ -87,7 +87,7 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
       author: 'Md. Umar Zahid',
       date: 'August 11, 2026',
       readTime: '10 min read',
-      coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop'
+      coverImage: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=800&auto=format&fit=crop'
     },
     {
       id: 8,
@@ -137,7 +137,7 @@ export const BlogPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) 
       author: 'Ayush Yadav',
       date: 'July 15, 2026',
       readTime: '9 min read',
-      coverImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop'
+      coverImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=800&auto=format&fit=crop'
     }
   ];
 

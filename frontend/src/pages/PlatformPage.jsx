@@ -117,7 +117,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
         desc: 'Automated mechanical shredders and closed-loop eco-chemical separation recover 98.2% gold and 94.6% copper.',
         stat: '98.2% Gold',
         statLabel: 'Recovery Yield',
-        image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop',
         points: ['Zero toxic air emissions', '98.2% gold & copper yield', 'Heavy metal containment']
       }
     },
@@ -131,7 +131,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
         desc: 'Undocumented trade without disposal certificates. Enterprise clients face regulatory fines for unverified e-waste handling.',
         stat: '₹0 ESG Value',
         statLabel: 'Regulatory Risk',
-        image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=600&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop',
         points: ['Zero compliance proof', 'Heavy regulatory penalty risk', 'Unaccounted municipal waste']
       },
       after: {
@@ -140,7 +140,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
         desc: 'Issues official CPCB Form-2 documents and Scope 3 carbon credit certificates calculating 2.8 tons of CO₂ saved per ton.',
         stat: '2.8T CO₂ Saved',
         statLabel: 'Per Ton Recycled',
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop',
         points: ['Automated CPCB Form-2 filing', 'Scope 3 carbon reduction certificate', '100% audit compliance guaranteed']
       }
     }

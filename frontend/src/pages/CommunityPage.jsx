@@ -29,7 +29,7 @@ export const CommunityPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDas
       title: 'India Achieves 38% Increase in Authorized E-Waste Recycler Registrations for 2026',
       summary: 'New CPCB portal metrics confirm rapid expansion of verified dismantling facilities in Uttar Pradesh, NCR, and Karnataka.',
       tag: 'Official Policy',
-      image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop'
     },
     {
       id: 2,
@@ -38,7 +38,7 @@ export const CommunityPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDas
       title: 'Urban Mining Breakthrough: Bio-Leaching Yields 99% Gold Purity from Circuit Boards',
       summary: 'Green chemical processes eliminate toxic cyanide leaching, enabling eco-friendly metal extraction in urban micro-smelters.',
       tag: 'Tech Breakthrough',
-      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=800&auto=format&fit=crop'
     },
     {
       id: 3,

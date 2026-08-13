@@ -23,7 +23,7 @@ export const SpiralStairwayFeatures = ({ onNavigate, onOpenConsumerApp, onOpenRe
       title: 'AI Computer Vision Classifier',
       subtitle: 'Sub-200ms Multi-Task Neural Recognition',
       desc: 'Instant camera scan detects device type, structural degradation tier, internal printed circuit board (PCB) size, and battery chemistry.',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop',
       badge: '99.4% AI Accuracy',
       icon: Cpu,
       stats: [
@@ -39,7 +39,7 @@ export const SpiralStairwayFeatures = ({ onNavigate, onOpenConsumerApp, onOpenRe
       title: 'Dynamic Resale Valuation Engine',
       subtitle: 'Real-Time Commodity Market Benchmark',
       desc: 'Algorithmic pricing referenced to live London Metal Exchange (LME) copper, gold, and silver commodity indices for transparent payouts.',
-      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=1200&auto=format&fit=crop',
       badge: 'Live LME Index',
       icon: TrendingUp,
       stats: [
@@ -55,7 +55,7 @@ export const SpiralStairwayFeatures = ({ onNavigate, onOpenConsumerApp, onOpenRe
       title: 'Real-Time Carbon Offset Analytics',
       subtitle: 'Scope 3 ESG Footprint Auditing',
       desc: 'Calculates exact greenhouse gas emissions avoided by diverting heavy metals from landfills into certified smelters.',
-      image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1200&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1200&auto=format&fit=crop',
       badge: 'CPCB & Scope 3 Certified',
       icon: Leaf,
       stats: [
@@ -71,7 +71,7 @@ export const SpiralStairwayFeatures = ({ onNavigate, onOpenConsumerApp, onOpenRe
       title: 'Digital E-Waste Passport',
       subtitle: 'Immutable Chain of Custody Ledger',
       desc: 'Generates an immutable digital passport tracking device trajectory from consumer camera submission to final smelter extraction.',
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop',
       badge: 'NIST 800-88 Standard',
       icon: FileText,
       stats: [
@@ -103,7 +103,7 @@ export const SpiralStairwayFeatures = ({ onNavigate, onOpenConsumerApp, onOpenRe
       title: 'Recycler B2B Web Portal',
       subtitle: 'Real-Time Industrial Bidding Queue',
       desc: 'Dedicated desktop web portal for authorized recyclers to filter incoming e-waste bids, accept pickup jobs, and audit inventory.',
-      image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop',
       badge: 'Authorized Recycler Hub',
       icon: LayoutDashboard,
       stats: [

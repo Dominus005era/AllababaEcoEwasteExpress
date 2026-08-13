@@ -59,7 +59,7 @@ export const MethodologyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerD
 
             <div className="step-card" style={{ padding: '0', overflow: 'hidden' }}>
               <div style={{ height: '140px', width: '100%' }}>
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Valuation" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop" alt="Valuation" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ padding: '24px' }}>
                 <div className="step-number">02</div>

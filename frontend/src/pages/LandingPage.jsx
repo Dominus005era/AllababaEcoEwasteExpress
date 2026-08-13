@@ -251,7 +251,7 @@ export const LandingPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
 
               <div className="blog-card">
                 <div className="blog-img-wrapper">
-                  <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop" alt="E-Waste Policy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop" alt="E-Waste Policy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div className="blog-content">
                   <div className="blog-tag">Environmental Policy</div>
@@ -265,7 +265,7 @@ export const LandingPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
 
               <div className="blog-card">
                 <div className="blog-img-wrapper">
-                  <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop" alt="Urban Mining" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=800&auto=format&fit=crop" alt="Urban Mining" style={{ width: '100%', height: '100%', objectFit: 'crop' }} />
                 </div>
                 <div className="blog-content">
                   <div className="blog-tag">Urban Mining</div>
@@ -318,7 +318,7 @@ export const LandingPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
 
               <div className="feature-card" style={{ padding: '0', overflow: 'hidden' }}>
                 <div style={{ height: '160px', width: '100%' }}>
-                  <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop" alt="News Hub" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=800&auto=format&fit=crop" alt="News Hub" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '24px' }}>
                   <BookOpen size={28} color="#8B5CF6" style={{ marginBottom: '12px' }} />
