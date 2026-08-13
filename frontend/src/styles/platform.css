@@ -266,6 +266,27 @@
   .platform-hero-desc {
     font-size: 0.92rem;
   }
+  .platform-stage-tabs-wrapper {
+    overflow-x: visible;
+    margin-bottom: 16px;
+  }
+  .platform-stage-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    width: 100%;
+    min-width: 100%;
+    padding: 6px;
+    border-radius: var(--radius-md);
+  }
+  .stage-tab-btn {
+    padding: 8px 6px;
+    font-size: 0.75rem;
+    justify-content: center;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    white-space: normal;
+  }
   .comparison-master-card {
     padding: 16px;
   }
@@ -290,7 +311,10 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
+  .platform-stage-tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .impact-stats-grid {
     grid-template-columns: 1fr !important;
   }
