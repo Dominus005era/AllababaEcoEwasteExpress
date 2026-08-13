@@ -55,7 +55,7 @@ export const LandingPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
               </h1>
 
               <p className="hero-subtitle">
-                Built on Indian Architecture & AI Innovation from Pragya's Uttar Pradesh. EcoTrace uses computer vision AI to instantly classify e-waste, extract component materials (Metals, PCBs, Batteries), estimate fair values, and route items directly to authorized recyclers.
+                Built on Indian Architecture & AI Innovation from Prayagraj, Uttar Pradesh. EcoTrace uses computer vision AI to instantly classify e-waste, extract component materials (Metals, PCBs, Batteries), estimate fair values, and route items directly to authorized recyclers.
               </p>
 
               <div className="hero-cta-group">

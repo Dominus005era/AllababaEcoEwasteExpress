@@ -19,7 +19,7 @@ export const Footer = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) =>
               <span>EcoTrace<span className="gradient-text">.AI</span></span>
             </button>
             <p className="footer-brand-desc">
-              Built on Indian Architecture & AI Innovation from Pragya's Uttar Pradesh. Empowering global circular economy through vision classification, dynamic valuation, and doorstep logistics.
+              Built on Indian Architecture & AI Innovation from Prayagraj, Uttar Pradesh. Empowering global circular economy through vision classification, dynamic valuation, and doorstep logistics.
             </p>
             <div style={{ display: 'flex', gap: '14px', color: 'var(--text-secondary)' }}>
               <a href="#" style={{ color: 'inherit' }} aria-label="Twitter"><Twitter size={20} /></a>
@@ -122,7 +122,7 @@ export const Footer = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) =>
 
         {/* Bottom Bar */}
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} EcoTrace AI Technologies Inc. Developed in Uttar Pradesh, India (PS-33).</p>
+          <p>© {new Date().getFullYear()} EcoTrace AI Technologies Inc. Developed in Prayagraj, Uttar Pradesh, India (PS-33).</p>
           <div className="footer-bottom-links">
             <a href="#" className="footer-link">Privacy Policy</a>
             <a href="#" className="footer-link">Terms of Service</a>

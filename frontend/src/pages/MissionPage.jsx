@@ -84,13 +84,13 @@ export const MissionPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
           }}>
             <div className="badge badge-emerald" style={{ marginBottom: '16px' }}>
               <Globe size={14} />
-              <span>Founded in Uttar Pradesh, India • SIH 2026 (PS-33)</span>
+              <span>Founded in Prayagraj, Uttar Pradesh, India • SIH 2026 (PS-33)</span>
             </div>
             <h1 style={{ fontSize: '2.8rem', fontWeight: '800', marginBottom: '16px', color: '#FFFFFF' }}>
               Our Mission & Student Founders
             </h1>
             <p style={{ fontSize: '1.15rem', color: '#CBD5E1', maxWidth: '750px', lineHeight: '1.6' }}>
-              Pioneered under the foundation of Pragya's Uttar Pradesh, EcoTrace was built by 6 student leads to transform India's informal e-waste disposal into an AI-powered circular economy.
+              Pioneered in Prayagraj, Uttar Pradesh, EcoTrace was built by 6 student leads to transform India's informal e-waste disposal into an AI-powered circular economy.
             </p>
           </div>
 
