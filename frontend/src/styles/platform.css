@@ -279,7 +279,9 @@
 
 /* MOBILE RESPONSIVENESS OVERRIDES */
 @media (max-width: 768px) {
-  .desktop-only-tabs {
+  .desktop-only-tabs,
+  .platform-stage-tabs-wrapper,
+  .platform-stage-tabs {
     display: none !important;
   }
   .mobile-stage-selector-card {
