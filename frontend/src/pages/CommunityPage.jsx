@@ -13,7 +13,8 @@ import {
   Sparkles, 
   ArrowRight,
   TrendingUp,
-  X
+  X,
+  Play
 } from 'lucide-react';
 
 export const CommunityPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) => {
@@ -224,36 +225,38 @@ export const CommunityPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDas
             </div>
           </div>
 
-          {/* COMMUNITY ACTION & DRIVE VIDEO DEMONSTRATION */}
-          <div className="video-card-wrapper" style={{
-            marginBottom: '60px',
-            borderRadius: 'var(--radius-lg)',
-            overflow: 'hidden',
-            border: '1px solid var(--border-color)',
-            boxShadow: 'var(--shadow-lg)',
-            background: 'var(--bg-card)'
-          }}>
-            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span className="badge badge-emerald">
-                  <Users size={14} />
-                  <span>Community Drive Media</span>
-                </span>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', margin: 0 }}>EcoTrace Live Community &amp; Campus Drive Action</h3>
+          {/* COMMUNITY ACTION & DRIVE VIDEO DEMONSTRATION — EXACT LANDING PAGE VIDEO UI */}
+          <div style={{ marginBottom: '60px' }}>
+            <div className="section-header" style={{ marginBottom: '36px' }}>
+              <div className="badge badge-emerald" style={{ marginBottom: '12px' }}>
+                <Play size={14} />
+                <span>Community Drive Media</span>
               </div>
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Student Movement &amp; Collection Drive Highlights</span>
+              <h2 className="section-title">Live Campus &amp; Community Action</h2>
+              <p className="section-description">Watch student volunteers, university drop-off drives, and grassroots circular revolution movements in Uttar Pradesh.</p>
             </div>
-            <div style={{ position: 'relative', width: '100%', background: '#000000' }}>
-              <video
-                controls
-                autoPlay
-                muted
-                loop
+
+            <div className="video-card-wrapper" style={{
+              maxWidth: '960px',
+              margin: '0 auto',
+              background: '#000000',
+              borderRadius: 'var(--radius-lg)',
+              border: '2px solid var(--emerald-primary)',
+              overflow: 'hidden',
+              boxShadow: 'var(--shadow-lg), var(--shadow-emerald)',
+              position: 'relative'
+            }}>
+              <video 
+                controls 
+                autoPlay 
+                muted 
+                loop 
                 playsInline
-                style={{ width: '100%', maxHeight: '520px', display: 'block', objectFit: 'contain' }}
-                src="/community_demo.mp4"
+                style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '520px', objectFit: 'cover' }}
+                poster="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
               >
-                Your browser does not support the video tag.
+                <source src="/community_demo.mp4" type="video/mp4" />
+                Your browser does not support HTML5 video playback.
               </video>
             </div>
           </div>
