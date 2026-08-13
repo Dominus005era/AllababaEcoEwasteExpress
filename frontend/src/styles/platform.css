@@ -281,11 +281,9 @@
 @media (max-width: 768px) {
   .desktop-only-tabs,
   .platform-stage-tabs-wrapper,
-  .platform-stage-tabs {
-    display: none !important;
-  }
+  .platform-stage-tabs,
   .mobile-stage-selector-card {
-    display: block;
+    display: none !important;
   }
   .platform-hero-card {
     padding: 24px 16px;
