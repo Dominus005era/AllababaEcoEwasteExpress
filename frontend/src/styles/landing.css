@@ -856,96 +856,46 @@
   }
 }
 
-/* Full-Bleed Sub-Page Hero Banner Backgrounds */
-.subpage-hero-section {
-  padding: 60px 0 40px;
+/* Shared Sub-Page Hero Banner Styling (Dark Sleek Mission Page Container Theme) */
+.page-hero-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 64px 44px;
+  margin-bottom: 48px;
+  box-shadow: var(--shadow-lg);
+  color: #FFFFFF;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 40px;
 }
 
-.subpage-hero-section.platform-hero-bg {
+.page-hero-card.methodology-hero {
   background: 
-    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
-    url("/platform_hero_bg.jpg") center/cover no-repeat fixed;
+    linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.88)),
+    url("/methodology_hero_bg.jpg") center/cover no-repeat;
 }
 
-[data-theme='light'] .subpage-hero-section.platform-hero-bg {
+.page-hero-card.blog-hero {
   background: 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
-    url("/platform_hero_bg.jpg") center/cover no-repeat fixed;
+    linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.88)),
+    url("/blog_hero_bg.jpg") center/cover no-repeat;
 }
 
-.subpage-hero-section.methodology-hero-bg {
+.page-hero-card.community-hero {
   background: 
-    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
-    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-[data-theme='light'] .subpage-hero-section.methodology-hero-bg {
-  background: 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
-    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-.subpage-hero-section.blog-hero-bg {
-  background: 
-    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
-    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-[data-theme='light'] .subpage-hero-section.blog-hero-bg {
-  background: 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
-    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-.subpage-hero-section.community-hero-bg {
-  background: 
-    linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.65) 100%),
-    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-[data-theme='light'] .subpage-hero-section.community-hero-bg {
-  background: 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.55) 100%),
-    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
-}
-
-/* Colored Glassmorphism Inner Card */
-.page-hero-card {
-  background: rgba(15, 23, 42, 0.76);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-lg);
-  padding: 52px 40px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  color: #FFFFFF;
-}
-
-[data-theme='light'] .page-hero-card {
-  background: rgba(255, 255, 255, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-  color: #0F172A;
+    linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.88)),
+    url("/community_hero_bg.jpg") center/cover no-repeat;
 }
 
 .page-hero-title {
   font-size: 2.8rem;
   font-weight: 800;
   margin-bottom: 16px;
-  color: var(--text-primary);
-}
-
-[data-theme='light'] .page-hero-title {
-  color: #0F172A;
+  color: #FFFFFF !important;
 }
 
 .page-hero-desc {
   font-size: 1.15rem;
-  color: var(--text-secondary);
+  color: #CBD5E1 !important;
   max-width: 750px;
   line-height: 1.6;
 }
