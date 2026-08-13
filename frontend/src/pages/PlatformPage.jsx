@@ -350,6 +350,40 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
 
           </div>
 
+          {/* PLATFORM PROCESS DEMO VIDEO */}
+          <div style={{
+            marginBottom: '48px',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+            border: '1px solid var(--border-color)',
+            boxShadow: 'var(--shadow-lg)',
+            background: 'var(--bg-card)'
+          }}>
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span className="badge badge-emerald">
+                  <Cpu size={14} />
+                  <span>Platform Demonstration</span>
+                </span>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', margin: 0 }}>EcoTrace Platform Operational Video</h3>
+              </div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Real-Time System Scan &amp; Valuation Workflow</span>
+            </div>
+            <div style={{ position: 'relative', width: '100%', background: '#000000' }}>
+              <video
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{ width: '100%', maxHeight: '520px', display: 'block', objectFit: 'contain' }}
+                src="/platform_demo.mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
           {/* TELEMETRY IMPACT BENCHMARKS */}
           <div className="impact-benchmarks-card">
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>

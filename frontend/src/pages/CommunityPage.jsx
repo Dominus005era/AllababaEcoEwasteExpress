@@ -224,6 +224,40 @@ export const CommunityPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDas
             </div>
           </div>
 
+          {/* COMMUNITY ACTION & DRIVE VIDEO DEMONSTRATION */}
+          <div style={{
+            marginBottom: '60px',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+            border: '1px solid var(--border-color)',
+            boxShadow: 'var(--shadow-lg)',
+            background: 'var(--bg-card)'
+          }}>
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span className="badge badge-emerald">
+                  <Users size={14} />
+                  <span>Community Drive Media</span>
+                </span>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', margin: 0 }}>EcoTrace Live Community &amp; Campus Drive Action</h3>
+              </div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Student Movement &amp; Collection Drive Highlights</span>
+            </div>
+            <div style={{ position: 'relative', width: '100%', background: '#000000' }}>
+              <video
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{ width: '100%', maxHeight: '520px', display: 'block', objectFit: 'contain' }}
+                src="/community_demo.mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
         </div>
       </main>
 
