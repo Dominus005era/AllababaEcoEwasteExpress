@@ -1,13 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged,
-  signInWithPopup
-} from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db, googleProvider } from '../config/firebase';
+import { supabase } from '../config/supabase';
 
 const AuthContext = createContext();
 
@@ -18,32 +10,38 @@ export const AuthProvider = ({ children }) => {
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Synchronize Firebase auth state or demo state
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setCurrentUser(user);
-        try {
-          // Fetch role from Firestore
-          const userDocRef = doc(db, 'users', user.uid);
-          const userSnap = await getDoc(userDocRef);
-          if (userSnap.exists()) {
-            setUserRole(userSnap.data().role || 'donor');
-          } else {
-            setUserRole('donor');
-          }
-        } catch (e) {
-          console.warn('Firestore role fetch fallback:', e);
-          setUserRole(userRole || 'donor');
-        }
+    // Check active session on mount
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setCurrentUser(session.user);
+        setUserRole(session.user.user_metadata?.role || 'donor');
       } else {
-        // Fall back to localStorage demo auth if offline/demo mode used
         const localUser = localStorage.getItem('ecotrace_user');
         if (localUser) {
           const parsed = JSON.parse(localUser);
           setCurrentUser(parsed);
           setUserRole(parsed.role || 'donor');
-        } else {
+        }
+      }
+      setLoading(false);
+    });
+
+    // Listen to Supabase Auth State changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        setCurrentUser(session.user);
+        const role = session.user.user_metadata?.role || 'donor';
+        setUserRole(role);
+        localStorage.setItem('ecotrace_user', JSON.stringify({
+          id: session.user.id,
+          email: session.user.email,
+          role,
+          displayName: session.user.user_metadata?.displayName
+        }));
+      } else {
+        const localUser = localStorage.getItem('ecotrace_user');
+        if (!localUser) {
           setCurrentUser(null);
           setUserRole(null);
         }
@@ -51,37 +49,52 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, []);
 
-  // Donor Registration
+  // Donor Registration with Supabase
   const registerDonor = async (email, password, displayName, upiId = '') => {
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      const user = res.user;
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            displayName: displayName || email.split('@')[0],
+            role: 'donor',
+            upiId
+          }
+        }
+      });
+
+      if (error) throw error;
+
+      const user = data.user;
       const userData = {
-        uid: user.uid,
+        id: user?.id || 'demo-donor-' + Date.now(),
         email,
         displayName: displayName || email.split('@')[0],
         upiId,
-        role: 'donor',
-        createdAt: new Date().toISOString()
+        role: 'donor'
       };
-      
+
+      // Create profile row in Supabase profiles table if configured
       try {
-        await setDoc(doc(db, 'users', user.uid), userData);
-      } catch (err) {
-        console.warn('Firestore save fallback:', err);
+        await supabase.from('profiles').upsert([
+          { id: user.id, email, display_name: displayName, role: 'donor', upi_id: upiId }
+        ]);
+      } catch (e) {
+        console.warn('Supabase profiles insert fallback:', e);
       }
 
-      setCurrentUser(user);
+      setCurrentUser(userData);
       setUserRole('donor');
       localStorage.setItem('ecotrace_user', JSON.stringify(userData));
-      return { success: true, user, role: 'donor' };
+      return { success: true, user: userData, role: 'donor' };
     } catch (error) {
-      // Fallback demo signup if Firebase config keys are placeholder
+      // Fallback demo donor account if Supabase keys are placeholder
       const demoUser = {
-        uid: 'demo-donor-' + Date.now(),
+        id: 'demo-donor-' + Date.now(),
         email,
         displayName: displayName || email.split('@')[0],
         upiId,
@@ -94,30 +107,27 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Login (Donor or Recycler)
+  // Login (Donor or Authorized Recycler) with Supabase
   const loginUser = async (email, password, targetRole = 'donor') => {
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
-      const user = res.user;
-      let role = 'donor';
-      
-      try {
-        const userSnap = await getDoc(doc(db, 'users', user.uid));
-        if (userSnap.exists()) {
-          role = userSnap.data().role || 'donor';
-        }
-      } catch (e) {
-        console.warn(e);
-      }
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      const user = data.user;
+      const role = user.user_metadata?.role || targetRole;
 
       setCurrentUser(user);
       setUserRole(role);
-      localStorage.setItem('ecotrace_user', JSON.stringify({ uid: user.uid, email, role }));
+      localStorage.setItem('ecotrace_user', JSON.stringify({ id: user.id, email, role }));
       return { success: true, user, role };
     } catch (error) {
-      // Demo authentication fallback for immediate testing
+      // Instant demo authentication fallback for testing
       const demoUser = {
-        uid: 'demo-' + targetRole + '-' + Date.now(),
+        id: 'demo-' + targetRole + '-' + Date.now(),
         email,
         displayName: email.split('@')[0],
         role: targetRole
@@ -129,29 +139,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Google Sign-In for Donors
+  // Google Sign-In with Supabase OAuth
   const loginWithGoogle = async () => {
     try {
-      const res = await signInWithPopup(auth, googleProvider);
-      const user = res.user;
-      const userData = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        role: 'donor',
-        createdAt: new Date().toISOString()
-      };
-      try {
-        await setDoc(doc(db, 'users', user.uid), userData, { merge: true });
-      } catch (e) {}
-
-      setCurrentUser(user);
-      setUserRole('donor');
-      localStorage.setItem('ecotrace_user', JSON.stringify(userData));
-      return { success: true, user, role: 'donor' };
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google'
+      });
+      if (error) throw error;
+      return { success: true, data };
     } catch (error) {
       const demoUser = {
-        uid: 'demo-google-donor',
+        id: 'demo-google-donor',
         email: 'donor.google@ecotrace.ai',
         displayName: 'Google Donor',
         role: 'donor'
@@ -163,10 +161,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout
+  // Logout with Supabase
   const logout = async () => {
     try {
-      await signOut(auth);
+      await supabase.auth.signOut();
     } catch (e) {}
     localStorage.removeItem('ecotrace_user');
     setCurrentUser(null);
