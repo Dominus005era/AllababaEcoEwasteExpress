@@ -65,16 +65,16 @@ export const Header = ({ currentView, onNavigate, onOpenConsumerApp, onOpenRecyc
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
-          {/* Launch Mobile App Flow Button */}
+          {/* Launch Mobile App / Donor Auth Button */}
           <button className="btn btn-outline btn-sm" onClick={onOpenConsumerApp}>
             <Smartphone size={16} />
             <span>Launch App</span>
           </button>
 
-          {/* Recycler Web Dashboard CTA */}
+          {/* Dual Auth Login Button (Changes text to Login) */}
           <button className="btn btn-primary btn-sm" onClick={onOpenRecyclerDash}>
             <LayoutDashboard size={16} />
-            <span>Recycler Portal</span>
+            <span>Login</span>
           </button>
 
           {/* Mobile Hamburger Toggle */}

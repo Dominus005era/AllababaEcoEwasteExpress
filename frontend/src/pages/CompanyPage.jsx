@@ -95,14 +95,14 @@ export const CompanyPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
                 EcoTrace connects electronics OEMs, tech parks, and corporate enterprises with verified industrial smelters. We replace informal dumping with automated CPCB compliance, audit-ready carbon credits, and zero-landfill guarantees.
               </p>
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <button className="btn btn-primary btn-lg" onClick={onOpenRecyclerDash}>
+                <button className="btn btn-primary btn-lg" onClick={() => onNavigate('admin')}>
                   <Building2 size={20} />
-                  <span>Access Recycler Portal</span>
+                  <span>Access Admin Portal</span>
                   <ArrowRight size={18} />
                 </button>
-                <button className="btn btn-secondary btn-lg" onClick={onOpenConsumerApp}>
-                  <Smartphone size={20} />
-                  <span>Test AI Scanner</span>
+                <button className="btn btn-secondary btn-lg" onClick={() => onNavigate('admin')}>
+                  <ShieldCheck size={20} />
+                  <span>Admin Sign In</span>
                 </button>
               </div>
             </div>
