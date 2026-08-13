@@ -680,6 +680,12 @@
   color: var(--text-muted);
 }
 
+.footer-bottom-links {
+  display: flex;
+  gap: 24px;
+  white-space: nowrap;
+}
+
 /* Large Reader Article Modal (Super Expanded Popup View) */
 .modal-overlay {
   position: fixed;
@@ -780,15 +786,18 @@
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
-  .footer-grid {
-    grid-template-columns: 1fr !important;
-    gap: 24px;
+  .footer-bottom {
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    align-items: center;
+    padding-top: 24px;
   }
-  .mission-box {
-    padding: 16px;
-  }
-  .feature-card, .metric-card, .step-card, .blog-card {
-    padding: 16px !important;
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
   }
 }
 

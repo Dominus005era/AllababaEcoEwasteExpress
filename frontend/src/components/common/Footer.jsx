@@ -123,7 +123,7 @@ export const Footer = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) =>
         {/* Bottom Bar */}
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} EcoTrace AI Technologies Inc. Developed in Uttar Pradesh, India (PS-33).</p>
-          <div style={{ display: 'flex', gap: '24px' }}>
+          <div className="footer-bottom-links">
             <a href="#" className="footer-link">Privacy Policy</a>
             <a href="#" className="footer-link">Terms of Service</a>
             <a href="#" className="footer-link">Security Whitepaper</a>
