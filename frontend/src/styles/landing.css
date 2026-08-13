@@ -866,42 +866,44 @@
   color: #FFFFFF;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .page-hero-card.methodology-hero {
   background: 
-    linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(30, 41, 59, 0.75)),
-    url("/methodology_hero_bg.jpg") center/cover no-repeat;
+    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.80)),
+    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
 }
 
 [data-theme='light'] .page-hero-card.methodology-hero {
   background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(241, 245, 249, 0.88)),
-    url("/methodology_hero_bg.jpg") center/cover no-repeat;
+    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(241, 245, 249, 0.86)),
+    url("/methodology_hero_bg.jpg") center/cover no-repeat fixed;
 }
 
 .page-hero-card.blog-hero {
   background: 
-    linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(30, 41, 59, 0.75)),
-    url("/blog_hero_bg.jpg") center/cover no-repeat;
+    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.80)),
+    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
 }
 
 [data-theme='light'] .page-hero-card.blog-hero {
   background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(241, 245, 249, 0.88)),
-    url("/blog_hero_bg.jpg") center/cover no-repeat;
+    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(241, 245, 249, 0.86)),
+    url("/blog_hero_bg.jpg") center/cover no-repeat fixed;
 }
 
 .page-hero-card.community-hero {
   background: 
-    linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(30, 41, 59, 0.75)),
-    url("/community_hero_bg.jpg") center/cover no-repeat;
+    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.80)),
+    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
 }
 
 [data-theme='light'] .page-hero-card.community-hero {
   background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(241, 245, 249, 0.88)),
-    url("/community_hero_bg.jpg") center/cover no-repeat;
+    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(241, 245, 249, 0.86)),
+    url("/community_hero_bg.jpg") center/cover no-repeat fixed;
 }
 
 .page-hero-title {
