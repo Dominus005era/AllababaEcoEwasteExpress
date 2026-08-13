@@ -70,15 +70,19 @@ CREATE POLICY "Recyclers can update submission status"
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, email, display_name, role)
+  INSERT INTO public.profiles (id, email, display_name, role, cpcb_license)
   VALUES (
     new.id,
     new.email,
     COALESCE(new.raw_user_meta_data->>'displayName', split_part(new.email, '@', 1)),
-    COALESCE(new.raw_user_meta_data->>'role', 'donor')
+    COALESCE(new.raw_user_meta_data->>'role', 'donor'),
+    new.raw_user_meta_data->>'cpcbLicense'
   )
   ON CONFLICT (id) DO UPDATE
-  SET email = EXCLUDED.email;
+  SET 
+    email = EXCLUDED.email,
+    role = EXCLUDED.role,
+    cpcb_license = EXCLUDED.cpcb_license;
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
