@@ -12,17 +12,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check active session on mount
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user) {
+        const role = await fetchRole(session.user);
         setCurrentUser(session.user);
-        setUserRole(session.user.user_metadata?.role || 'donor');
+        setUserRole(role);
       } else {
-        const localUser = localStorage.getItem('ecotrace_user');
-        if (localUser) {
-          const parsed = JSON.parse(localUser);
-          setCurrentUser(parsed);
-          setUserRole(parsed.role || 'donor');
-        }
+        setCurrentUser(null);
+        setUserRole(null);
       }
       setLoading(false);
     });
@@ -30,21 +27,12 @@ export const AuthProvider = ({ children }) => {
     // Listen to Supabase Auth State changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
+        const role = await fetchRole(session.user);
         setCurrentUser(session.user);
-        const role = session.user.user_metadata?.role || 'donor';
         setUserRole(role);
-        localStorage.setItem('ecotrace_user', JSON.stringify({
-          id: session.user.id,
-          email: session.user.email,
-          role,
-          displayName: session.user.user_metadata?.displayName
-        }));
       } else {
-        const localUser = localStorage.getItem('ecotrace_user');
-        if (!localUser) {
-          setCurrentUser(null);
-          setUserRole(null);
-        }
+        setCurrentUser(null);
+        setUserRole(null);
       }
       setLoading(false);
     });
@@ -52,113 +40,93 @@ export const AuthProvider = ({ children }) => {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Helper to fetch exact role from profiles table or metadata
+  const fetchRole = async (user) => {
+    if (!user) return null;
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
+
+      if (data && data.role) {
+        return data.role;
+      }
+    } catch (e) {}
+    return user.user_metadata?.role || 'donor';
+  };
+
   // Donor Registration with Supabase
   const registerDonor = async (email, password, displayName, upiId = '') => {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            displayName: displayName || email.split('@')[0],
-            role: 'donor',
-            upiId
-          }
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          displayName: displayName || email.split('@')[0],
+          role: 'donor',
+          upiId
         }
-      });
+      }
+    });
 
-      if (error) throw error;
+    if (error) {
+      throw new Error(error.message || 'Registration failed.');
+    }
 
-      const user = data.user;
-      const userData = {
-        id: user?.id || 'demo-donor-' + Date.now(),
-        email,
-        displayName: displayName || email.split('@')[0],
-        upiId,
-        role: 'donor'
-      };
+    const user = data.user;
 
-      // Create profile row in Supabase profiles table if configured
+    // Create profile row in Supabase profiles table
+    if (user) {
       try {
         await supabase.from('profiles').upsert([
           { id: user.id, email, display_name: displayName, role: 'donor', upi_id: upiId }
         ]);
       } catch (e) {
-        console.warn('Supabase profiles insert fallback:', e);
+        console.warn('Profile insert note:', e);
       }
-
-      setCurrentUser(userData);
-      setUserRole('donor');
-      localStorage.setItem('ecotrace_user', JSON.stringify(userData));
-      return { success: true, user: userData, role: 'donor' };
-    } catch (error) {
-      // Fallback demo donor account if Supabase keys are placeholder
-      const demoUser = {
-        id: 'demo-donor-' + Date.now(),
-        email,
-        displayName: displayName || email.split('@')[0],
-        upiId,
-        role: 'donor'
-      };
-      setCurrentUser(demoUser);
-      setUserRole('donor');
-      localStorage.setItem('ecotrace_user', JSON.stringify(demoUser));
-      return { success: true, user: demoUser, role: 'donor' };
     }
+
+    setCurrentUser(user);
+    setUserRole('donor');
+    return { success: true, user, role: 'donor' };
   };
 
-  // Login (Donor or Authorized Recycler) with Supabase
+  // Strict Login (Donor or Authorized Recycler) with Supabase
   const loginUser = async (email, password, targetRole = 'donor') => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
 
-      if (error) throw error;
-
-      const user = data.user;
-      const role = user.user_metadata?.role || targetRole;
-
-      setCurrentUser(user);
-      setUserRole(role);
-      localStorage.setItem('ecotrace_user', JSON.stringify({ id: user.id, email, role }));
-      return { success: true, user, role };
-    } catch (error) {
-      // Instant demo authentication fallback for testing
-      const demoUser = {
-        id: 'demo-' + targetRole + '-' + Date.now(),
-        email,
-        displayName: email.split('@')[0],
-        role: targetRole
-      };
-      setCurrentUser(demoUser);
-      setUserRole(targetRole);
-      localStorage.setItem('ecotrace_user', JSON.stringify(demoUser));
-      return { success: true, user: demoUser, role: targetRole };
+    if (error) {
+      throw new Error(error.message || 'Invalid email or password.');
     }
+
+    const user = data.user;
+    const role = await fetchRole(user);
+
+    // If logging into Authorized Recycler Portal, verify account has recycler/admin role
+    if (targetRole === 'recycler' && role !== 'recycler' && role !== 'admin') {
+      await supabase.auth.signOut();
+      throw new Error('Access Denied: This account is not an authorized CPCB Smelter/Recycler.');
+    }
+
+    setCurrentUser(user);
+    setUserRole(role);
+    return { success: true, user, role };
   };
 
   // Google Sign-In with Supabase OAuth
   const loginWithGoogle = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google'
-      });
-      if (error) throw error;
-      return { success: true, data };
-    } catch (error) {
-      const demoUser = {
-        id: 'demo-google-donor',
-        email: 'donor.google@ecotrace.ai',
-        displayName: 'Google Donor',
-        role: 'donor'
-      };
-      setCurrentUser(demoUser);
-      setUserRole('donor');
-      localStorage.setItem('ecotrace_user', JSON.stringify(demoUser));
-      return { success: true, user: demoUser, role: 'donor' };
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google'
+    });
+    if (error) {
+      throw new Error(error.message || 'Google authentication failed.');
     }
+    return { success: true, data };
   };
 
   // Logout with Supabase
@@ -166,7 +134,6 @@ export const AuthProvider = ({ children }) => {
     try {
       await supabase.auth.signOut();
     } catch (e) {}
-    localStorage.removeItem('ecotrace_user');
     setCurrentUser(null);
     setUserRole(null);
   };
