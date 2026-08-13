@@ -1,0 +1,12 @@
+{
+  "name": "ecotrace-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EcoTrace - AI Smart E-Waste Classification & Recycling Platform (PS-33)",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start:backend": "npm --prefix backend start",
+    "start": "npm --prefix frontend run dev"
+  }
+}
