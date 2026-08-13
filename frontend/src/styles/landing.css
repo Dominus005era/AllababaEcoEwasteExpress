@@ -782,9 +782,9 @@
     width: 100%;
     justify-content: center;
   }
-  .metrics-grid, .features-grid, .methodology-steps, .blog-grid, .hero-grid {
+  .metrics-grid, .features-grid, .methodology-steps, .blog-grid, .hero-grid, .footer-grid {
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    gap: 28px !important;
   }
   .footer-bottom {
     flex-direction: column;
