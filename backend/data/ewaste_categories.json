@@ -1,0 +1,52 @@
+{
+  "categories": [
+    {
+      "id": "smartphone",
+      "name": "Smartphone",
+      "trend": "-24%",
+      "materials": ["Metals", "PCBs", "Batterie", "Glass"],
+      "recoverableMetals": ["Gold (0.034g)", "Copper (15g)", "Silver (0.35g)", "Cobalt (5g)"],
+      "estimatedValue": 450,
+      "benchmarkValue": 1788,
+      "co2SavedKg": 2.3,
+      "hazardousMaterials": ["Lithium-Ion", "Lead Trace"],
+      "recyclingDifficulty": "Medium"
+    },
+    {
+      "id": "laptop",
+      "name": "Laptop & Notebook",
+      "trend": "-15%",
+      "materials": ["Aluminum Shell", "PCBs", "Lithium Battery", "Copper Heatpipe"],
+      "recoverableMetals": ["Gold (0.12g)", "Copper (120g)", "Silver (1.2g)", "Rare Earth Magnets"],
+      "estimatedValue": 1200,
+      "benchmarkValue": 4500,
+      "co2SavedKg": 8.5,
+      "hazardousMaterials": ["Lithium Polymer", "Flame Retardants"],
+      "recyclingDifficulty": "High"
+    },
+    {
+      "id": "monitor",
+      "name": "LCD / LED Monitor",
+      "trend": "-10%",
+      "materials": ["Plastic Case", "Glass Substrate", "Power PCB", "Aluminum Frame"],
+      "recoverableMetals": ["Copper (180g)", "Indium (0.05g)", "Steel (800g)"],
+      "estimatedValue": 650,
+      "benchmarkValue": 2200,
+      "co2SavedKg": 5.2,
+      "hazardousMaterials": ["Mercury Backlight (older LCD)", "Lead Solder"],
+      "recyclingDifficulty": "Medium"
+    },
+    {
+      "id": "pcb",
+      "name": "Printed Circuit Board (Bare)",
+      "trend": "+5%",
+      "materials": ["Gold Contacts", "Copper Foil", "Fiberglass Substrate", "IC Chips"],
+      "recoverableMetals": ["Gold (0.25g/kg)", "Copper (250g/kg)", "Silver (2.5g/kg)"],
+      "estimatedValue": 850,
+      "benchmarkValue": 1500,
+      "co2SavedKg": 4.1,
+      "hazardousMaterials": ["Brominated Flame Retardants"],
+      "recyclingDifficulty": "Easy"
+    }
+  ]
+}
