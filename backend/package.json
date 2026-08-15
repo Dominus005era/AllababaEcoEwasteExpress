@@ -1,14 +1,25 @@
 {
-  "name": "ecotrace-backend",
+  "name": "ewaste-backend",
   "version": "1.0.0",
-  "type": "module",
+  "description": "This is the Node.js + Express backend for the E-Waste Management Platform. It uses a Firebase/Firestore database architecture divided into distinct logical layers, with a ValuationEngine API to compute real-time pricing and valuations.",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "firebase-admin": "^14.2.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

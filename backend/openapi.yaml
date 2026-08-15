@@ -1,0 +1,205 @@
+openapi: 3.0.0
+info:
+  title: E-Waste Management Platform API
+  version: 1.0.0
+  description: API documentation for the E-Waste Management Platform backend, covering Valuation, Passports, Pickups, Recycler Dashboard, and Traceability workflows. Note that Devices, MaterialProfiles, and RecyclerPricing are internal database layer services and do not have exposed REST endpoints.
+servers:
+  - url: http://localhost:3000
+    description: Local Development Server
+
+paths:
+  /api/valuations/calculate:
+    post:
+      summary: Calculate dynamic valuation for a device
+      description: Queries Layers 1-3 to compute the Total Recoverable Value and applies deductions to return the User Receives amount.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deviceId
+                - recyclerId
+              properties:
+                deviceId:
+                  type: string
+                  example: "DEV001"
+                recyclerId:
+                  type: string
+                  example: "REC001"
+      responses:
+        '200':
+          description: Successful valuation calculation
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  deviceId: "DEV001"
+                  recyclerId: "REC001"
+                  baseWeight: 0.194
+                  totalRecoverableValue: 370.75
+                  deductions:
+                    operationalCost: 74.15
+                    recyclerMargin: 37.08
+                  userReceives: 259.53
+                  materialBreakdown:
+                    Copper: { weight: 0.01552, unit: "kg", rate: 870, value: 13.50 }
+                    PCB: { weight: 0.01358, unit: "kg", rate: 4000, value: 54.32 }
+                  calculatedAt: "2026-08-15T12:00:00Z"
+        '400':
+          description: Validation Error
+
+  /api/passport:
+    post:
+      summary: Generate a Digital E-Waste Passport
+      description: Generates a unique tracking ID and bundles device details with an estimated value range automatically calling the Valuation Engine.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deviceId
+                - recyclerId
+              properties:
+                deviceId:
+                  type: string
+                  example: "DEV001"
+                recyclerId:
+                  type: string
+                  example: "REC001"
+      responses:
+        '201':
+          description: Passport generated successfully
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  trackingId: "EW-2026-991855"
+                  deviceId: "DEV001"
+                  recyclerId: "REC001"
+                  deviceCategory: "Smartphone"
+                  estimatedValueRange:
+                    min: 233.58
+                    max: 285.48
+                  materialsList: ["Copper", "Aluminium", "Plastic", "PCB", "Battery", "Gold", "Silver"]
+                  status: "REGISTERED"
+                  createdAt: "2026-08-15T12:00:00Z"
+
+  /api/pickup:
+    post:
+      summary: Schedule a Pickup
+      description: Schedules a pickup request for a registered passport.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - passportId
+                - location
+                - timeSlot
+                - recyclerId
+              properties:
+                passportId:
+                  type: string
+                  example: "EW-2026-991855"
+                location:
+                  type: string
+                  example: "123 Tech Park, Bangalore"
+                timeSlot:
+                  type: string
+                  example: "10 AM - 12 PM"
+                recyclerId:
+                  type: string
+                  example: "REC001"
+      responses:
+        '201':
+          description: Pickup scheduled successfully
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  pickupId: "PU-52402"
+                  passportId: "EW-2026-991855"
+                  recyclerId: "REC001"
+                  location: "123 Tech Park, Bangalore"
+                  timeSlot: "10 AM - 12 PM"
+                  status: "SCHEDULED"
+                  createdAt: "2026-08-15T12:05:00Z"
+
+  /api/recycler/requests:
+    get:
+      summary: Get active requests for a recycler Dashboard
+      description: Returns all active pickup requests and their associated passport info including a randomized distance mock.
+      parameters:
+        - in: query
+          name: recyclerId
+          required: true
+          schema:
+            type: string
+          example: "REC001"
+      responses:
+        '200':
+          description: A list of requests
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  - pickupId: "PU-52402"
+                    passportId: "EW-2026-991855"
+                    deviceId: "DEV001"
+                    deviceCategory: "Smartphone"
+                    estimatedValueRange: { min: 233.58, max: 285.48 }
+                    location: "123 Tech Park, Bangalore"
+                    timeSlot: "10 AM - 12 PM"
+                    distance: "4.0 km"
+                    status: "REGISTERED"
+                    requestedAt: "2026-08-15T12:05:00Z"
+
+  /api/traceability/status:
+    patch:
+      summary: Update traceability lifecycle status
+      description: Ensures strict linear transition (REGISTERED -> COLLECTED -> RECYCLER_RECEIVED -> SORTING -> RESPONSIBLY_RECYCLED).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - passportId
+                - newStatus
+              properties:
+                passportId:
+                  type: string
+                  example: "EW-2026-991855"
+                newStatus:
+                  type: string
+                  example: "COLLECTED"
+      responses:
+        '200':
+          description: Status updated successfully
+          content:
+            application/json:
+              example:
+                success: true
+                data:
+                  passportId: "EW-2026-991855"
+                  oldStatus: "REGISTERED"
+                  newStatus: "COLLECTED"
+                  message: "Status transitioned successfully"
+        '409':
+          description: Invalid transition (Skipped a state)
+          content:
+            application/json:
+              example:
+                success: false
+                error: "RECYCLING CHAIN INCOMPLETE"
