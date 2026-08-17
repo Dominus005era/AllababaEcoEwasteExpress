@@ -164,3 +164,198 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-icon, .spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Community Admin Responsive Helpers & Mobile Drawer */
+.community-admin-sidebar {
+  width: 280px;
+  max-width: 280px;
+  background: linear-gradient(180deg, #0F172A 0%, #111827 50%, #0F172A 100%);
+  border-right: 1px solid #1E293B;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow-y: auto;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+  user-select: none;
+}
+
+@media (max-width: 1024px) {
+  .community-admin-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    height: 100vh !important;
+    z-index: 1001 !important;
+    transform: translateX(-100%) !important;
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .community-admin-sidebar.open {
+    transform: translateX(0) !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+  
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .comm-admin-pass-grid,
+  .comm-admin-create-grid,
+  .comm-admin-analytics-grid,
+  .comm-admin-ann-grid,
+  .comm-admin-profile-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .community-admin-main-scroll {
+    padding: 16px 12px 60px !important;
+  }
+}
+
+.comm-form-row-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.comm-form-row-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.comm-pass-table-desktop {
+  display: block;
+}
+
+.comm-pass-cards-mobile {
+  display: none;
+}
+
+.comm-sticky-col-desktop {
+  position: sticky;
+  top: 20px;
+}
+
+@media (max-width: 768px) {
+  .comm-sticky-col-desktop {
+    position: static !important;
+  }
+
+  .comm-pass-table-desktop {
+    display: none !important;
+  }
+
+  .comm-pass-cards-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .comm-form-row-2col,
+  .comm-form-row-3col {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .comm-admin-table-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+  }
+
+  .comm-admin-table-container table {
+    min-width: 580px !important;
+  }
+
+  .comm-header-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .comm-header-actions > * {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  .comm-search-input-box {
+    width: 100% !important;
+    flex: none !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    box-sizing: border-box !important;
+  }
+
+  .comm-filters-group {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .comm-filters-group select {
+    flex: 1 1 calc(50% - 4px) !important;
+    min-width: 120px !important;
+    box-sizing: border-box !important;
+  }
+
+  .comm-filters-group .comm-create-btn,
+  .comm-filters-group .comm-action-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .comm-stats-strip {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-status-pill {
+    display: none !important;
+  }
+
+  .comm-hide-xs {
+    display: none !important;
+  }
+
+  .comm-stats-strip {
+    grid-template-columns: 1fr !important;
+  }
+
+  .comm-btn-compact-text {
+    font-size: 0.76rem !important;
+    padding: 6px 10px !important;
+  }
+}

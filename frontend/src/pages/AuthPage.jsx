@@ -7,46 +7,54 @@ import {
   Building2, 
   Lock, 
   Mail, 
-  Key, 
-  Smartphone, 
   ShieldCheck, 
   Sparkles, 
-  ArrowRight,
-  CheckCircle2,
-  AlertCircle
+  ArrowRight, 
+  CheckCircle2, 
+  AlertCircle,
+  FileCheck,
+  CreditCard
 } from 'lucide-react';
 
 export const AuthPage = ({ initialRole = 'donor', onNavigate, onLoginSuccess }) => {
-  const { registerDonor, loginUser, loginWithGoogle } = useAuth();
+  const { registerDonor, registerRecycler, loginUser, loginWithGoogle } = useAuth();
   
-  // Active Portal Role: 'donor' or 'recycler'
-  const [activePortal, setActivePortal] = useState(initialRole);
+  // Active Portal Role: strictly 'donor' or 'recycler'
+  const [activePortal, setActivePortal] = useState(initialRole === 'admin' ? 'donor' : initialRole);
   
-  // Auth Mode for Donor: 'signin' or 'register'
-  const [donorAuthMode, setDonorAuthMode] = useState('signin');
+  // Auth Mode: 'signin' or 'register'
+  const [authMode, setAuthMode] = useState('signin');
   
   // Form State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
+  const [companyName, setCompanyName] = useState('');
   const [upiId, setUpiId] = useState('');
   const [recyclerCode, setRecyclerCode] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
   
   // Feedback State
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccessMsg('');
     setLoading(true);
 
     try {
       if (activePortal === 'donor') {
-        if (donorAuthMode === 'register') {
+        if (authMode === 'register') {
           const res = await registerDonor(email, password, displayName, upiId);
           if (res.success) {
-            onLoginSuccess('donor');
+            setSuccessMsg(res.message || 'Donor Account Registered Successfully!');
+            setTimeout(() => {
+              onLoginSuccess('donor');
+            }, 800);
           }
         } else {
           const res = await loginUser(email, password, 'donor');
@@ -54,15 +62,42 @@ export const AuthPage = ({ initialRole = 'donor', onNavigate, onLoginSuccess }) 
             onLoginSuccess('donor');
           }
         }
-      } else {
-        const code = recyclerCode || 'CPCB-UP-2026-REC-04';
-        const res = await loginUser(email, password, 'recycler', code);
-        if (res.success) {
-          onLoginSuccess('recycler');
+      } else if (activePortal === 'recycler') {
+        if (authMode === 'register') {
+          if (!companyName) {
+            throw new Error('Organization / Company Name is required.');
+          }
+          if (!recyclerCode || recyclerCode.trim().length < 4) {
+            throw new Error('CPCB Smelter License Code is required for Recycler Registration.');
+          }
+          const res = await registerRecycler(
+            email, 
+            password, 
+            companyName, 
+            upiId, 
+            recyclerCode, 
+            displayName, 
+            phone, 
+            address
+          );
+          if (res.success) {
+            setSuccessMsg(res.message || 'Recycler Registered Successfully under Organization!');
+            setTimeout(() => {
+              onLoginSuccess('recycler');
+            }, 1000);
+          }
+        } else {
+          if (!recyclerCode || recyclerCode.trim().length < 4) {
+            throw new Error('Access Denied: CPCB Smelter License / Unique Recycler ID is strictly required.');
+          }
+          const res = await loginUser(email, password, 'recycler', recyclerCode);
+          if (res.success) {
+            onLoginSuccess('recycler');
+          }
         }
       }
     } catch (err) {
-      onLoginSuccess(activePortal);
+      setError(err.message || 'Authentication failed. Please verify your credentials.');
     } finally {
       setLoading(false);
     }
@@ -84,76 +119,60 @@ export const AuthPage = ({ initialRole = 'donor', onNavigate, onLoginSuccess }) 
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header currentView="auth" onNavigate={onNavigate} />
 
-      <main style={{ flex: 1, padding: '40px 0 100px', display: 'flex', alignItems: 'center' }}>
-        <div className="container" style={{ maxWidth: '1080px' }}>
+      <main className="auth-page-main">
+        <div className="auth-card-container">
           
           {/* Main Auth Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '40px',
-            alignItems: 'center',
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-lg)',
-            padding: '40px',
-            boxShadow: 'var(--shadow-lg)',
-            position: 'relative',
-            overflow: 'hidden'
-          }} className="metrics-grid">
+          <div className="auth-grid">
             
-            {/* Left Decorative Info Column */}
-            <div style={{ paddingRight: '20px' }}>
-              <div className="badge badge-emerald" style={{ marginBottom: '16px' }}>
+            {/* Left Info Column */}
+            <div className="auth-info-col">
+              <div className="badge badge-emerald" style={{ marginBottom: '14px' }}>
                 <Sparkles size={14} />
-                <span>EcoTrace Secure Auth Engine</span>
+                <span>EcoTrace Secure JWT Authentication</span>
               </div>
 
-              <h1 style={{ fontSize: '2.4rem', fontWeight: '800', lineHeight: '1.2', marginBottom: '20px' }}>
-                {activePortal === 'donor' ? (
-                  <>Circular Economy <span className="gradient-text">Donor Portal</span></>
-                ) : (
-                  <>Authorized <span className="gradient-text">Recycler &amp; Smelter Hub</span></>
-                )}
+              <h1 className="auth-title">
+                {activePortal === 'donor' && <>Circular Economy <span className="gradient-text">Donor Portal</span></>}
+                {activePortal === 'recycler' && <>Authorized <span className="gradient-text">Recycler Hub</span></>}
               </h1>
 
-              <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '32px' }}>
-                {activePortal === 'donor' 
-                  ? "Join India's AI-driven e-waste recycling movement. Snap device photos, receive sub-200ms camera valuation, instant direct UPI payouts, and track your carbon offset."
-                  : "Authorized Industrial Smelter Portal. Access digital asset manifests, NIST 800-88 hardware destruction logs, CPCB Form-2 filings, and secondary metal bidding."
-                }
+              <p className="auth-subtitle">
+                {activePortal === 'donor' && "Access verified donor features. Scan electronics, obtain AI metal valuations, dispatch doorstep pickups to certified smelters, and receive instant UPI payouts."}
+                {activePortal === 'recycler' && "Secure portal for authorized recycling personnel. Validate against CPCB license database, manage incoming scrap dispatches, and process live metal recovery."}
               </p>
 
-              {/* Feature Highlights */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {activePortal === 'donor' ? (
+              <div className="auth-feature-list">
+                {activePortal === 'donor' && (
                   <>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
-                      <CheckCircle2 size={20} color="#10B981" />
-                      <span>Instant Sub-200ms Camera Scanner AI</span>
+                    <div className="auth-feature-item">
+                      <CheckCircle2 size={18} color="#10B981" />
+                      <span>Strict Email &amp; Password Account Verification</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
-                      <CheckCircle2 size={20} color="#10B981" />
-                      <span>Direct UPI Doorstep Cash Payouts</span>
+                    <div className="auth-feature-item">
+                      <CheckCircle2 size={18} color="#10B981" />
+                      <span>Instant UPI Direct Settlement on Pickup Complete</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
-                      <CheckCircle2 size={20} color="#10B981" />
-                      <span>Verified Zero-Landfill ESG Badges</span>
+                    <div className="auth-feature-item">
+                      <CheckCircle2 size={18} color="#10B981" />
+                      <span>Verified Traceability Certificate Generation</span>
                     </div>
                   </>
-                ) : (
+                )}
+
+                {activePortal === 'recycler' && (
                   <>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
-                      <ShieldCheck size={20} color="#3B82F6" />
-                      <span>CPCB &amp; EPR Compliance Form-2 Audit Engine</span>
+                    <div className="auth-feature-item">
+                      <ShieldCheck size={18} color="#3B82F6" />
+                      <span>Authorized Organization &amp; CPCB Smelter License Match</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
-                      <ShieldCheck size={20} color="#3B82F6" />
-                      <span>NIST 800-88 Wiped Hardware Destruction Certs</span>
+                    <div className="auth-feature-item">
+                      <ShieldCheck size={18} color="#3B82F6" />
+                      <span>Assigned Recycler Personnel Platform Verification</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
-                      <ShieldCheck size={20} color="#3B82F6" />
-                      <span>Pre-Authorized Smelter Credentials Only</span>
+                    <div className="auth-feature-item">
+                      <ShieldCheck size={18} color="#3B82F6" />
+                      <span>Live Donor Order Acceptance &amp; Multiplier Controls</span>
                     </div>
                   </>
                 )}
@@ -161,213 +180,304 @@ export const AuthPage = ({ initialRole = 'donor', onNavigate, onLoginSuccess }) 
             </div>
 
             {/* Right Authentication Form Card */}
-            <div style={{
-              background: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: 'var(--radius-lg)',
-              padding: '32px',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
-            }}>
+            <div className="auth-form-card">
               
-              {/* TOP ROLE SWITCHER TABS */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '8px',
-                background: 'var(--bg-card)',
-                padding: '6px',
-                borderRadius: 'var(--radius-md)',
-                marginBottom: '28px',
-                border: '1px solid var(--border-color)'
-              }}>
+              {/* TOP ROLE SWITCHER TABS (Donor vs Recycler) */}
+              <div className="auth-role-tabs">
                 <button
                   type="button"
-                  onClick={() => { setActivePortal('donor'); setError(''); }}
-                  className={`btn ${activePortal === 'donor' ? 'btn-primary' : 'btn-secondary'} btn-sm`}
-                  style={{ borderRadius: 'var(--radius-sm)' }}
+                  onClick={() => { 
+                    setActivePortal('donor'); 
+                    setError(''); 
+                    setSuccessMsg(''); 
+                  }}
+                  className={`auth-role-tab-btn ${activePortal === 'donor' ? 'active' : ''}`}
                 >
-                  <User size={16} />
+                  <User size={15} />
                   <span>Donor Portal</span>
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => { setActivePortal('recycler'); setError(''); }}
-                  className={`btn ${activePortal === 'recycler' ? 'btn-primary' : 'btn-secondary'} btn-sm`}
-                  style={{ borderRadius: 'var(--radius-sm)' }}
+                  onClick={() => { 
+                    setActivePortal('recycler'); 
+                    setError(''); 
+                    setSuccessMsg(''); 
+                  }}
+                  className={`auth-role-tab-btn ${activePortal === 'recycler' ? 'active role-recycler' : ''}`}
                 >
-                  <Building2 size={16} />
-                  <span>Authorized Recycler</span>
+                  <Building2 size={15} />
+                  <span>Recycler Hub</span>
                 </button>
               </div>
 
-              {/* Sub-Header / Instructions */}
-              <div style={{ marginBottom: '24px' }}>
-                {activePortal === 'donor' ? (
-                  <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid var(--border-color)', paddingBottom: '12px' }}>
-                    <button
-                      type="button"
-                      onClick={() => setDonorAuthMode('signin')}
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        fontSize: '1rem',
-                        fontWeight: '700',
-                        color: donorAuthMode === 'signin' ? 'var(--emerald-primary)' : 'var(--text-muted)',
-                        cursor: 'pointer',
-                        borderBottom: donorAuthMode === 'signin' ? '2px solid var(--emerald-primary)' : 'none',
-                        paddingBottom: '6px'
-                      }}
-                    >
-                      Sign In
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setDonorAuthMode('register')}
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        fontSize: '1rem',
-                        fontWeight: '700',
-                        color: donorAuthMode === 'register' ? 'var(--emerald-primary)' : 'var(--text-muted)',
-                        cursor: 'pointer',
-                        borderBottom: donorAuthMode === 'register' ? '2px solid var(--emerald-primary)' : 'none',
-                        paddingBottom: '6px'
-                      }}
-                    >
-                      Register Account
-                    </button>
-                  </div>
-                ) : (
-                  <div className="badge badge-blue" style={{ width: '100%', justifyContent: 'center', padding: '8px' }}>
-                    <Lock size={14} />
-                    <span>Restricted Access • Pre-Authorized Credentials Only</span>
-                  </div>
-                )}
+              {/* MODE SWITCHER FOR DONOR / RECYCLER */}
+              <div className="auth-mode-toggle">
+                <button
+                  type="button"
+                  onClick={() => { setAuthMode('signin'); setError(''); setSuccessMsg(''); }}
+                  className={`auth-mode-btn ${authMode === 'signin' ? 'active' : ''}`}
+                >
+                  {activePortal === 'donor' ? 'Sign In' : 'Recycler Login'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setAuthMode('register'); setError(''); setSuccessMsg(''); }}
+                  className={`auth-mode-btn ${authMode === 'register' ? 'active' : ''}`}
+                >
+                  {activePortal === 'donor' ? 'Register Account' : 'Register Recycler'}
+                </button>
               </div>
 
+              {/* ERROR ALERT WITH DYNAMIC AUTO-SWITCH CTAS */}
               {error && (
                 <div style={{
-                  background: 'rgba(239, 68, 68, 0.1)',
-                  border: '1px solid #EF4444',
+                  background: 'rgba(239, 68, 68, 0.08)',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
                   color: '#EF4444',
-                  padding: '12px',
+                  padding: '12px 14px',
+                  borderRadius: 'var(--radius-sm)',
+                  fontSize: '0.85rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                  marginBottom: '16px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                    <AlertCircle size={17} style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <span style={{ flex: 1, lineHeight: '1.4' }}>{error}</span>
+                  </div>
+
+                  {/* If user attempted signin with an unregistered email -> Provide instant button to switch to Register */}
+                  {authMode === 'signin' && (error.toLowerCase().includes('not registered') || error.toLowerCase().includes('create an account') || error.toLowerCase().includes('not completed registration')) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthMode('register');
+                        setError('');
+                        setSuccessMsg(`Switched to registration for "${email}". Fill in required fields to register.`);
+                      }}
+                      style={{
+                        alignSelf: 'flex-start',
+                        marginLeft: '25px',
+                        background: activePortal === 'donor' ? 'var(--emerald-primary)' : '#3B82F6',
+                        color: '#ffffff',
+                        border: 'none',
+                        padding: '6px 12px',
+                        borderRadius: 'var(--radius-sm)',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>{activePortal === 'donor' ? 'Register Account Now' : 'Register Recycler Now'}</span>
+                      <ArrowRight size={13} />
+                    </button>
+                  )}
+
+                  {/* If user attempted register with an already registered email -> Provide button to switch to Sign In */}
+                  {authMode === 'register' && error.toLowerCase().includes('already registered') && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthMode('signin');
+                        setError('');
+                      }}
+                      style={{
+                        alignSelf: 'flex-start',
+                        marginLeft: '25px',
+                        background: 'var(--emerald-primary)',
+                        color: '#ffffff',
+                        border: 'none',
+                        padding: '6px 12px',
+                        borderRadius: 'var(--radius-sm)',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <span>Sign In Instead</span>
+                      <ArrowRight size={13} />
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* SUCCESS ALERT */}
+              {successMsg && (
+                <div style={{
+                  background: 'rgba(16, 185, 129, 0.12)',
+                  border: '1px solid #10B981',
+                  color: '#10B981',
+                  padding: '10px 12px',
                   borderRadius: 'var(--radius-sm)',
                   fontSize: '0.85rem',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  marginBottom: '20px'
+                  marginBottom: '16px'
                 }}>
-                  <AlertCircle size={16} />
-                  <span>{error}</span>
+                  <CheckCircle2 size={16} style={{ flexShrink: 0 }} />
+                  <span>{successMsg}</span>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 
-                {/* Full Name for Donor Registration */}
-                {activePortal === 'donor' && donorAuthMode === 'register' && (
-                  <div>
-                    <label style={{ fontSize: '0.85rem', fontWeight: '600', display: 'block', marginBottom: '6px' }}>Full Name</label>
-                    <div style={{ position: 'relative' }}>
-                      <User size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                {/* Recycler Register: Organization Name */}
+                {activePortal === 'recycler' && authMode === 'register' && (
+                  <div className="auth-input-group">
+                    <label className="auth-input-label">Recycling Organization / Company Name *</label>
+                    <div className="auth-input-wrapper">
+                      <Building2 size={16} className="auth-input-icon" />
                       <input
                         type="text"
+                        required
+                        placeholder="e.g. CleanMetal Refineries Pvt Ltd"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Recycler Register: Representative / Recycler Name */}
+                {activePortal === 'recycler' && authMode === 'register' && (
+                  <div className="auth-input-group">
+                    <label className="auth-input-label">Recycler Full Name / Representative Name *</label>
+                    <div className="auth-input-wrapper">
+                      <User size={16} className="auth-input-icon" />
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Anil Sharma"
+                        value={displayName}
+                        onChange={(e) => setDisplayName(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Donor Register: Full Name */}
+                {activePortal === 'donor' && authMode === 'register' && (
+                  <div className="auth-input-group">
+                    <label className="auth-input-label">Full Name</label>
+                    <div className="auth-input-wrapper">
+                      <User size={16} className="auth-input-icon" />
+                      <input
+                        type="text"
+                        required
                         placeholder="e.g. Rahul Sharma"
                         value={displayName}
                         onChange={(e) => setDisplayName(e.target.value)}
-                        style={{ width: '100%', padding: '12px 12px 12px 40px', borderRadius: 'var(--radius-md)', background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                        className="auth-input"
                       />
                     </div>
                   </div>
                 )}
 
                 {/* Email Address */}
-                <div>
-                  <label style={{ fontSize: '0.85rem', fontWeight: '600', display: 'block', marginBottom: '6px' }}>
-                    {activePortal === 'donor' ? 'Email Address' : 'Authorized Corporate Email'}
+                <div className="auth-input-group">
+                  <label className="auth-input-label">
+                    {activePortal === 'donor' ? 'Donor Email Address' : 'Corporate Email Address (Issued by Org)'}
                   </label>
-                  <div style={{ position: 'relative' }}>
-                    <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                  <div className="auth-input-wrapper">
+                    <Mail size={16} className="auth-input-icon" />
                     <input
                       type="email"
-                      placeholder={activePortal === 'donor' ? 'donor@example.com' : 'smelter.admin@recycling.co.in'}
+                      required
+                      placeholder={activePortal === 'donor' ? "Enter registered email" : "e.g. anil.sharma@cleanmetal.in"}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      style={{ width: '100%', padding: '12px 12px 12px 40px', borderRadius: 'var(--radius-md)', background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
+                      className="auth-input"
                     />
                   </div>
                 </div>
 
-                {/* Password */}
-                <div>
-                  <label style={{ fontSize: '0.85rem', fontWeight: '600', display: 'block', marginBottom: '6px' }}>Password</label>
-                  <div style={{ position: 'relative' }}>
-                    <Lock size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                    <input
-                      type="password"
-                      placeholder="••••••••"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      style={{ width: '100%', padding: '12px 12px 12px 40px', borderRadius: 'var(--radius-md)', background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
-                    />
-                  </div>
-                </div>
-
-                {/* Optional UPI for Donor Registration */}
-                {activePortal === 'donor' && donorAuthMode === 'register' && (
-                  <div>
-                    <label style={{ fontSize: '0.85rem', fontWeight: '600', display: 'block', marginBottom: '6px' }}>UPI ID (Optional for instant cash payouts)</label>
-                    <input
-                      type="text"
-                      placeholder="rahul@upi / 9876543210@paytm"
-                      value={upiId}
-                      onChange={(e) => setUpiId(e.target.value)}
-                      style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-md)', background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', outline: 'none' }}
-                    />
+                {/* Recycler: CPCB Smelter License Code */}
+                {activePortal === 'recycler' && (
+                  <div className="auth-input-group">
+                    <label className="auth-input-label" style={{ color: 'var(--text-primary)' }}>
+                      CPCB Smelter License Code / Authorized Recycler ID *
+                    </label>
+                    <div className="auth-input-wrapper">
+                      <FileCheck size={16} className="auth-input-icon" />
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. CPCB-MH-2026-REC-1042"
+                        value={recyclerCode}
+                        onChange={(e) => setRecyclerCode(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
                   </div>
                 )}
 
-                {/* Required Smelter Authorization Code for Recyclers */}
-                {activePortal === 'recycler' && (
-                  <div>
-                    <label style={{ fontSize: '0.85rem', fontWeight: '600', display: 'block', marginBottom: '6px', color: 'var(--text-primary)' }}>
-                      CPCB Smelter License / Auth Code <span style={{ color: 'var(--text-muted)' }}>(Optional)</span>
-                    </label>
+                {/* Password */}
+                <div className="auth-input-group">
+                  <label className="auth-input-label">
+                    {activePortal === 'donor' ? 'Password' : (authMode === 'register' ? 'Authorization Password (Issued by Org)' : 'Account Password')}
+                  </label>
+                  <div className="auth-input-wrapper">
+                    <Lock size={16} className="auth-input-icon" />
                     <input
-                      type="text"
-                      placeholder="e.g. CPCB-UP-2026-REC-04"
-                      value={recyclerCode}
-                      onChange={(e) => setRecyclerCode(e.target.value)}
-                      style={{ width: '100%', padding: '12px', borderRadius: 'var(--radius-md)', background: 'var(--bg-card)', border: '1px solid var(--emerald-primary)', color: 'var(--text-primary)', outline: 'none' }}
+                      type="password"
+                      required
+                      placeholder="Enter password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="auth-input"
                     />
+                  </div>
+                </div>
+
+                {/* UPI ID for Donor / Recycler Register */}
+                {authMode === 'register' && (
+                  <div className="auth-input-group">
+                    <label className="auth-input-label">UPI ID / Virtual Payment Address (for Instant Scrap Payouts)</label>
+                    <div className="auth-input-wrapper">
+                      <CreditCard size={16} className="auth-input-icon" />
+                      <input
+                        type="text"
+                        placeholder="e.g. name@oksbi or company@okhdfc"
+                        value={upiId}
+                        onChange={(e) => setUpiId(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
                   </div>
                 )}
 
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary auth-submit-btn"
                   disabled={loading}
-                  style={{ width: '100%', padding: '14px', marginTop: '10px', fontSize: '1rem', fontWeight: '700' }}
                 >
                   <span>
-                    {loading ? 'Authenticating...' : activePortal === 'donor' 
-                      ? (donorAuthMode === 'register' ? 'Create Donor Account' : 'Sign In as Donor')
-                      : 'Authorized Smelter Login'
+                    {loading ? 'Verifying Credentials...' : activePortal === 'donor' 
+                      ? (authMode === 'register' ? 'Create Donor Account' : 'Sign In as Donor')
+                      : (authMode === 'register' ? 'Register Recycler Profile' : 'Sign In to Recycler Hub')
                     }
                   </span>
-                  <ArrowRight size={18} />
+                  <ArrowRight size={16} />
                 </button>
 
-                {/* Google Sign In for Donors */}
                 {activePortal === 'donor' && (
                   <button
                     type="button"
                     className="btn btn-outline"
                     onClick={handleGoogleAuth}
-                    style={{ width: '100%', padding: '12px', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '11px', fontSize: '0.88rem', borderRadius: 'var(--radius-md)' }}
                   >
                     <span>Continue with Google</span>
                   </button>

@@ -95,7 +95,7 @@ export const LandingPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash 
         </section>
 
         {/* PROPER DEMO VIDEO PLAYER REGION */}
-        <section style={{ padding: '60px 0', background: 'var(--bg-secondary)', borderY: '1px solid var(--border-color)' }}>
+        <section id="demo-video" style={{ padding: '60px 0', background: 'var(--bg-secondary)', borderY: '1px solid var(--border-color)' }}>
           <div className="container">
             <div className="section-header" style={{ marginBottom: '36px' }}>
               <div className="badge badge-emerald" style={{ marginBottom: '12px' }}>

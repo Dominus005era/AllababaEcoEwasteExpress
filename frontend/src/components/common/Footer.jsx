@@ -57,6 +57,7 @@ export const Footer = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) =>
             <ul className="footer-links">
               <li><button onClick={() => onNavigate('mission')} className="footer-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>Our Mission & Founders</button></li>
               <li><button onClick={() => onNavigate('company')} className="footer-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>Enterprise ESG</button></li>
+              <li><button onClick={() => onNavigate('partner')} className="footer-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>Indian E-Waste Partners</button></li>
               <li><button onClick={() => onNavigate('blog')} className="footer-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>Press & Articles</button></li>
               <li><button onClick={() => onNavigate('community')} className="footer-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>Community Drives</button></li>
             </ul>

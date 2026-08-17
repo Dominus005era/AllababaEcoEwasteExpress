@@ -23,126 +23,137 @@ import {
   LayoutDashboard,
   TrendingUp,
   ListFilter,
-  Play
+  Play,
+  FileCheck2,
+  MapPin,
+  QrCode,
+  Layers,
+  Eye
 } from 'lucide-react';
 
 export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [displayMode, setDisplayMode] = useState('comparison'); // 'comparison' or 'story-art'
 
   const steps = [
     {
       id: '01',
-      stageName: 'Disposal & Valuation',
-      shortName: '01. Valuation',
+      stageName: 'Creation & The Drawer of Oblivion',
+      shortName: '01. Creation',
+      storyImage: '/story/img 2.png',
       before: {
-        title: 'Informal Scrap Dumping',
-        badge: 'Unregulated Disposal',
-        desc: 'Electronics dumped in municipal bins or lowballed by informal scrap dealers with arbitrary guesswork pricing.',
-        stat: '₹50 - ₹100',
-        statLabel: 'Scrap Value',
+        title: 'The Forgotten Shadow Journey',
+        badge: 'Drawer of Oblivion',
+        desc: 'A cracked smartphone sits in a dark bedroom drawer for 3 years. Forgotten. Outdated. Eventually tossed into the daily trash bag alongside wet household garbage.',
+        stat: '3 Years Lost',
+        statLabel: 'Drawer Stagnation',
         image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=600&auto=format&fit=crop',
-        points: ['No computer vision scan', 'Subjective lowball pricing', 'Fire risk from damaged batteries']
+        points: ['Zero perceived value', 'Treated as worthless junk', 'Precious metals wasted forever']
       },
       after: {
-        title: 'AI Neural Camera Scan (< 200ms)',
-        badge: 'LME Metal Benchmark',
-        desc: 'Sub-200ms camera scan identifies device model, PCB component area, battery chemistry, and issues instant UPI cash quote.',
-        stat: '₹420 - ₹650',
-        statLabel: 'Instant Cash Quote',
+        title: 'The Dignified Circular Journey',
+        badge: 'Instant AI Voice',
+        desc: 'A phone reaches the end of its life. Instead of rotting in a drawer or wet trash, the user opens EcoTrace, snaps a single photo, and gives that old phone a voice in < 3s.',
+        stat: '< 3 Seconds',
+        statLabel: 'AI Scan Time',
         image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600&auto=format&fit=crop',
-        points: ['Edge AI material classification', 'Live London Metal Exchange index', 'Instant direct UPI payout']
+        points: ['EcoTrace AI scan in under 3s', 'Device & broken condition auto-detected', '94% confidence classification']
       }
     },
     {
       id: '02',
-      stageName: 'Data Sanitization & Custody',
-      shortName: '02. Sanitization',
+      stageName: 'The Invisible Loss vs Revealed Value',
+      shortName: '02. Valuation',
+      storyImage: '/story/img 1.png',
       before: {
-        title: 'Unsecured Personal Data',
-        badge: 'High Leakage Risk',
-        desc: 'Storage drives resold in second-hand markets without data wiping, exposing personal photos, banking info, and corporate logins.',
-        stat: '0% Data Wiped',
-        statLabel: 'Security Audit',
+        title: 'The Invisible Loss',
+        badge: 'Zero Value Perceived',
+        desc: 'Treated as worthless junk. No one knows what precious metals inside — gold, copper, lithium, PCBs — are being wasted forever with informal scrap dealers.',
+        stat: '₹0 / Scrap Loss',
+        statLabel: 'Zero Perceived Worth',
         image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop',
-        points: ['No data destruction proof', 'Corporate audit failure', 'Resold without sanitization']
+        points: ['Gold, Copper, Lithium = ₹0 Value', 'Informal scrap dealer lowballing', 'Heavy toxic metals discarded']
       },
       after: {
-        title: 'NIST 800-88 Wiping & QR Passport',
-        badge: 'Immutable Ledger Log',
-        desc: 'Serialized digital passport attached via QR code. Hardware storage drives wiped to NIST 800-88 national security standards.',
-        stat: '100% Wiped',
-        statLabel: 'NIST 800-88 Certified',
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop',
-        points: ['NIST 800-88 certified sanitization', 'Immutable QR chain-of-custody', 'Audit-ready destruction logs']
+        title: 'The Revealed Value & Yield Matrix',
+        badge: 'Instant Cash Quote',
+        desc: 'AI neural vision instantly breaks down the inner soul of the device: gold contacts, copper wire, lithium battery, and yields an instant ₹450 cash payout with 2.3kg CO₂ saved.',
+        stat: '₹450 Cash',
+        statLabel: '2.3kg CO₂ Abated',
+        image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600&auto=format&fit=crop',
+        points: ['Breakdown: Gold, Copper, Lithium, PCBs', 'Instant ₹450 direct UPI valuation', 'Hidden waste becomes visible wealth']
       }
     },
     {
       id: '03',
-      stageName: 'Logistics & Transit',
+      stageName: 'The Dangerous Path vs Green Logistics',
       shortName: '03. Logistics',
+      storyImage: '/story/img 3.png',
       before: {
-        title: 'Hazardous Open Transit',
-        badge: 'Uncertified Transport',
-        desc: 'Scrap hauled loosely in open handcarts. Screen breakage releases toxic mercury vapors and lead dust into city streets.',
-        stat: '12% Lost / Damaged',
-        statLabel: 'Spillage Loss',
+        title: 'The Dangerous Path',
+        badge: 'Unregulated Handcarts',
+        desc: 'Collected by informal scrap peddlers. Loaded onto open carts. Handled with bare hands. Shipped to unregulated, unmapped back-alley scrap yards.',
+        stat: '100% Hazardous',
+        statLabel: 'Unregulated Exposure',
         image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop',
-        points: ['Open exposure to toxins', 'No GPS map tracking', 'Uninsured transit loss']
+        points: ['Handled loosely with bare hands', 'Loaded onto open wooden carts', 'Shipped to unregulated back-alley yards']
       },
       after: {
-        title: 'GPS-Tracked Sealed Doorstep Pickup',
-        badge: '< 24 Hours Dispatch',
-        desc: 'Authorized logistics partners dispatch with anti-static insulated containers, real-time map tracking, and slot scheduling.',
-        stat: '< 24 Hours',
+        title: 'Green Logistics & Live Map Tracking',
+        badge: 'Doorstep Green Van',
+        desc: 'One simple tap on "Schedule Pickup". A verified CPCB-authorized green recycler is dispatched directly to the doorstep with interactive live GPS map tracking.',
+        stat: 'Live GPS Track',
         statLabel: 'Doorstep Pickup',
         image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600&auto=format&fit=crop',
-        points: ['Live map GPS tracking', 'Insulated anti-static safety box', 'Fully insured logistics stream']
+        points: ['1-Tap "Schedule Pickup" booking', 'Assigned green logistics vehicle', 'Live map tracking from pickup to facility']
       }
     },
     {
       id: '04',
-      stageName: 'Extraction & Urban Mining',
-      shortName: '04. Recovery',
+      stageName: 'The Human Toll vs Certified Recycling',
+      shortName: '04. Processing',
+      storyImage: '/story/img 4.png',
       before: {
-        title: 'Acid Baths & Open Burning',
-        badge: 'Toxic Burning Yard',
-        desc: 'Informal clusters burn wire insulation with charcoal fires and leach circuit boards in boiling toxic aqua-regia acid baths.',
-        stat: '< 15% Recovery',
-        statLabel: 'Precious Metals Lost',
+        title: 'The Human & Planet Toll',
+        badge: 'Toxic Acid & Open Fire',
+        desc: 'Acid baths poured directly into soil. Toxic lead and mercury fumes breathed in by young workers. Groundwater poisoned and e-waste burned over open charcoal fires.',
+        stat: 'Toxic Poison',
+        statLabel: 'Acid Soil Runoff',
         image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop',
-        points: ['Carcinogenic toxic smoke', 'Acid dumped into rivers', '85% precious metals wasted']
+        points: ['Acid baths dumped into waterways', 'Toxic lead & mercury smoke inhaled', 'Groundwater poisoned across generations']
       },
       after: {
-        title: 'Closed-Loop Hydrometallurgical Extraction',
-        badge: 'CPCB Certified Smelter',
-        desc: 'Automated mechanical shredders and closed-loop eco-chemical separation recover 98.2% gold and 94.6% copper.',
-        stat: '98.2% Gold',
-        statLabel: 'Recovery Yield',
+        title: 'Certified Recycling & Digital Passport',
+        badge: 'EW-2026-000184 Passport',
+        desc: 'Digital E-Waste Passport (EW-2026-000184) updated live. Authorized facility safely dismantles devices. 98.2% gold, copper, and lithium recovered for clean circular supply chains.',
+        stat: '98.2% Yield',
+        statLabel: 'Gold & Copper Saved',
         image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop',
-        points: ['Zero toxic air emissions', '98.2% gold & copper yield', 'Heavy metal containment']
+        points: ['Digital Passport EW-2026-000184', 'Safely dismantled in certified plant', 'Precious metals returned to supply chain']
       }
     },
     {
       id: '05',
-      stageName: 'Compliance & ESG Accounting',
-      shortName: '05. ESG Audit',
+      stageName: 'The Negative Legacy vs Proof of Impact',
+      shortName: '05. Proof of Impact',
+      storyImage: '/story/img 5.png',
       before: {
-        title: 'Illegal Gray Market Trade',
-        badge: 'Non-Compliant Risk',
-        desc: 'Undocumented trade without disposal certificates. Enterprise clients face regulatory fines for unverified e-waste handling.',
-        stat: '₹0 ESG Value',
-        statLabel: 'Regulatory Risk',
+        title: 'The Negative Legacy',
+        badge: 'Millions of Tons Landfilled',
+        desc: 'Millions of tons clogging municipal landfills. Permanent environmental toxicity. Heavy metals like mercury, cadmium, and lead leaking into city water reservoirs.',
+        stat: 'Infinite Risk',
+        statLabel: 'Permanent Landfill Waste',
         image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop',
-        points: ['Zero compliance proof', 'Heavy regulatory penalty risk', 'Unaccounted municipal waste']
+        points: ['Mountains of e-waste in slum dumps', 'Heavy metal toxic leak into soil', 'Zero accountability or recycling trail']
       },
       after: {
-        title: 'Automated CPCB Form-2 & Scope 3 Certificate',
-        badge: 'CPCB & Scope 3 Certified',
-        desc: 'Issues official CPCB Form-2 documents and Scope 3 carbon credit certificates calculating 2.8 tons of CO₂ saved per ton.',
-        stat: '2.8T CO₂ Saved',
-        statLabel: 'Per Ton Recycled',
+        title: 'The EcoTrace Verified Impact Certificate',
+        badge: 'Audit Verified Seal',
+        desc: 'Digital Green Certificate issued. Total carbon footprint offset calculated (2.3kg CO₂ per device). E-waste permanently transformed into clean, traceable wealth.',
+        stat: '2.3kg CO₂',
+        statLabel: 'Carbon Offset Verified',
         image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop',
-        points: ['Automated CPCB Form-2 filing', 'Scope 3 carbon reduction certificate', '100% audit compliance guaranteed']
+        points: ['Digital Green Certificate EW-2026-000184', 'Carbon offset mathematically verified', '100% circular manufacturing loop']
       }
     }
   ];
@@ -168,13 +179,13 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
 
       <main style={{ flex: 1, padding: '0 0 80px' }}>
 
-        {/* HERO SECTION — full-bleed bg exactly like landing page */}
+        {/* HERO SECTION */}
         <section className="platform-page-hero">
           <div className="container">
             <div className="platform-hero-card">
               <div className="badge badge-emerald" style={{ marginBottom: '14px', width: 'fit-content' }}>
                 <Sparkles size={14} />
-                <span>Interactive E-Waste Transformation Engine</span>
+                <span>The Story of E-Waste • Problem Statement &amp; AI Solution</span>
               </div>
 
               <h1 className="platform-hero-title">
@@ -182,13 +193,13 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
               </h1>
 
               <p className="platform-hero-desc">
-                Compare the environmental, financial, and regulatory realities of electronic waste. Track how informal scrap chains cause toxic pollution, while EcoTrace AI guarantees a safe, circular pathway.
+                Follow the journey of electronic waste: from forgotten bedroom drawers and toxic acid burning yards to AI-powered instant valuation, green doorstep logistics, and certified digital passports.
               </p>
 
               <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
                 <button className="btn btn-primary" onClick={onOpenConsumerApp}>
                   <Smartphone size={18} />
-                  <span>Test Camera Scanner</span>
+                  <span>Test AI Camera Scanner</span>
                 </button>
                 <button className="btn btn-secondary" onClick={onOpenRecyclerDash}>
                   <LayoutDashboard size={18} />
@@ -200,6 +211,50 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
         </section>
 
         <div className="container">
+
+          {/* VIEW SWITCHER: COMPARISON CARDS vs STORY ARTWORK */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+            <div style={{ fontSize: '0.85rem', color: '#94A3B8', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Select Transformation Lifecycle Stage:
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', background: 'var(--bg-secondary)', padding: '4px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+              <button
+                onClick={() => setDisplayMode('comparison')}
+                style={{
+                  background: displayMode === 'comparison' ? 'var(--emerald-primary)' : 'transparent',
+                  color: displayMode === 'comparison' ? '#FFFFFF' : 'var(--text-secondary)',
+                  border: 'none',
+                  borderRadius: '6px',
+                  padding: '6px 14px',
+                  fontSize: '0.82rem',
+                  fontWeight: '700',
+                  cursor: 'pointer'
+                }}
+              >
+                Side-by-Side Matrix
+              </button>
+              <button
+                onClick={() => setDisplayMode('story-art')}
+                style={{
+                  background: displayMode === 'story-art' ? 'var(--emerald-primary)' : 'transparent',
+                  color: displayMode === 'story-art' ? '#FFFFFF' : 'var(--text-secondary)',
+                  border: 'none',
+                  borderRadius: '6px',
+                  padding: '6px 14px',
+                  fontSize: '0.82rem',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <Eye size={14} />
+                <span>Story Visual Artwork</span>
+              </button>
+            </div>
+          </div>
 
           {/* DESKTOP STAGE SELECTOR TABS */}
           <div className="platform-stage-tabs-wrapper desktop-only-tabs">
@@ -213,14 +268,14 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
                     className={`stage-tab-btn ${isActive ? 'active' : ''}`}
                   >
                     <span className="stage-tab-num">{st.id}</span>
-                    <span>{st.stageName}</span>
+                    <span>{st.shortName}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* MOBILE DROPDOWN STAGE SELECTOR (100% Clean Mobile UX) */}
+          {/* MOBILE DROPDOWN STAGE SELECTOR */}
           <div className="mobile-stage-selector-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--emerald-primary)', fontWeight: '700', fontSize: '0.85rem', marginBottom: '8px' }}>
               <ListFilter size={16} />
@@ -239,7 +294,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
             </select>
           </div>
 
-          {/* MAIN DUAL COMPARISON STAGE SHOWCASE */}
+          {/* MAIN STAGE SHOWCASE CARD */}
           <div className="comparison-master-card">
             
             {/* Top Stage Header & Controls */}
@@ -248,74 +303,98 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
                 <span className="badge badge-emerald" style={{ fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
                   STAGE {activeStage.id} OF 05
                 </span>
-                <h2 style={{ fontSize: '1.4rem', fontWeight: '800', margin: 0 }}>{activeStage.stageName}</h2>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: '800', margin: 0, color: '#FFFFFF' }}>{activeStage.stageName}</h2>
               </div>
             </div>
 
-            {/* DUAL COMPARISON GRID (Side-by-Side on Desktop, Stacked cleanly on Mobile) */}
-            <div className="comparison-grid">
-              
-              {/* BEFORE ECOTRACE CARD */}
-              <div className="comparison-subcard before-card">
-                <div className="subcard-header red">
-                  <Trash2 size={20} color="#EF4444" />
-                  <div>
-                    <span className="subcard-tag red">🔴 BEFORE ECOTRACE</span>
-                    <h3 className="subcard-title red">{activeStage.before.title}</h3>
-                  </div>
-                </div>
-
-                <div className="subcard-media-wrapper">
-                  <img src={activeStage.before.image} alt={activeStage.before.title} />
-                  <div className="subcard-stat-overlay red">
-                    <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#FECDD3' }}>{activeStage.before.statLabel}</div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#FFFFFF' }}>{activeStage.before.stat}</div>
-                  </div>
-                </div>
-
-                <p className="subcard-desc">{activeStage.before.desc}</p>
-
-                <div className="subcard-bullets">
-                  {activeStage.before.points.map((pt, pidx) => (
-                    <div key={pidx} className="bullet-item red">
-                      <span className="bullet-dot red">•</span>
-                      <span>{pt}</span>
+            {displayMode === 'comparison' ? (
+              /* DUAL COMPARISON GRID (Side-by-Side on Desktop, Stacked cleanly on Mobile) */
+              <div className="comparison-grid">
+                
+                {/* BEFORE ECOTRACE CARD */}
+                <div className="comparison-subcard before-card">
+                  <div className="subcard-header red">
+                    <Trash2 size={20} color="#EF4444" />
+                    <div>
+                      <span className="subcard-tag red">🔴 BEFORE ECOTRACE</span>
+                      <h3 className="subcard-title red">{activeStage.before.title}</h3>
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="subcard-media-wrapper">
+                    <img src={activeStage.before.image} alt={activeStage.before.title} />
+                    <div className="subcard-stat-overlay red">
+                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#FECDD3' }}>{activeStage.before.statLabel}</div>
+                      <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#FFFFFF' }}>{activeStage.before.stat}</div>
+                    </div>
+                  </div>
+
+                  <p className="subcard-desc">{activeStage.before.desc}</p>
+
+                  <div className="subcard-bullets">
+                    {activeStage.before.points.map((pt, pidx) => (
+                      <div key={pidx} className="bullet-item red">
+                        <span className="bullet-dot red">•</span>
+                        <span>{pt}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* AFTER ECOTRACE CARD */}
+                <div className="comparison-subcard after-card">
+                  <div className="subcard-header green">
+                    <Cpu size={20} color="#10B981" />
+                    <div>
+                      <span className="subcard-tag green">🟢 AFTER ECOTRACE</span>
+                      <h3 className="subcard-title green">{activeStage.after.title}</h3>
+                    </div>
+                  </div>
+
+                  <div className="subcard-media-wrapper">
+                    <img src={activeStage.after.image} alt={activeStage.after.title} />
+                    <div className="subcard-stat-overlay green">
+                      <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#D1FAE5' }}>{activeStage.after.statLabel}</div>
+                      <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#FFFFFF' }}>{activeStage.after.stat}</div>
+                    </div>
+                  </div>
+
+                  <p className="subcard-desc">{activeStage.after.desc}</p>
+
+                  <div className="subcard-bullets">
+                    {activeStage.after.points.map((pt, pidx) => (
+                      <div key={pidx} className="bullet-item green">
+                        <CheckCircle2 size={15} color="#10B981" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <span>{pt}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            ) : (
+              /* STORY ARTWORK INFOGRAPHIC MODE */
+              <div style={{ padding: '20px', textAlign: 'center' }}>
+                <div style={{
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  border: '2px solid rgba(16, 185, 129, 0.4)',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                  background: '#0B0F19',
+                  maxWidth: '1000px',
+                  margin: '0 auto'
+                }}>
+                  <img 
+                    src={activeStage.storyImage} 
+                    alt={`The Story of E-Waste Stage ${activeStage.id}`}
+                    style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '600px', objectFit: 'contain' }}
+                  />
+                </div>
+                <div style={{ marginTop: '14px', fontSize: '0.85rem', color: '#94A3B8' }}>
+                  Graphic illustration from <em>"The Story of E-Waste"</em> problem statement series.
                 </div>
               </div>
-
-              {/* AFTER ECOTRACE CARD */}
-              <div className="comparison-subcard after-card">
-                <div className="subcard-header green">
-                  <Cpu size={20} color="#10B981" />
-                  <div>
-                    <span className="subcard-tag green">🟢 AFTER ECOTRACE</span>
-                    <h3 className="subcard-title green">{activeStage.after.title}</h3>
-                  </div>
-                </div>
-
-                <div className="subcard-media-wrapper">
-                  <img src={activeStage.after.image} alt={activeStage.after.title} />
-                  <div className="subcard-stat-overlay green">
-                    <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#D1FAE5' }}>{activeStage.after.statLabel}</div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#FFFFFF' }}>{activeStage.after.stat}</div>
-                  </div>
-                </div>
-
-                <p className="subcard-desc">{activeStage.after.desc}</p>
-
-                <div className="subcard-bullets">
-                  {activeStage.after.points.map((pt, pidx) => (
-                    <div key={pidx} className="bullet-item green">
-                      <CheckCircle2 size={15} color="#10B981" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      <span>{pt}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
+            )}
 
             {/* Bottom Controls Bar */}
             <div className="comparison-bottom-bar">
@@ -351,15 +430,17 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
 
           </div>
 
-          {/* PLATFORM PROCESS DEMO VIDEO — EXACT LANDING PAGE VIDEO UI */}
-          <div style={{ marginBottom: '60px' }}>
+          {/* PLATFORM ENGINE ARCHITECTURE VIDEO SECTION */}
+          <div style={{ marginBottom: '60px', marginTop: '60px' }}>
             <div className="section-header" style={{ marginBottom: '36px' }}>
               <div className="badge badge-emerald" style={{ marginBottom: '12px' }}>
                 <Play size={14} />
-                <span>Platform Video Walkthrough</span>
+                <span>Platform Transformation Walkthrough</span>
               </div>
-              <h2 className="section-title">EcoTrace Platform Operational Video</h2>
-              <p className="section-description">Watch real-time system scanning, sub-200ms computer vision material matrix calculation, and automated recycler routing.</p>
+              <h2 className="section-title">The EcoTrace Platform Engine in Action</h2>
+              <p className="section-description">
+                Explore our end-to-end circular infrastructure: from AI neural hardware valuation and automated CPCB-compliant bidding to digitized doorstep logistics and closed-loop material recovery.
+              </p>
             </div>
 
             <div className="video-card-wrapper" style={{
@@ -381,6 +462,7 @@ export const PlatformPage = ({ onNavigate, onOpenConsumerApp, onOpenRecyclerDash
                 style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '520px', objectFit: 'cover' }}
                 poster="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop"
               >
+                <source src="/Platform.mp4" type="video/mp4" />
                 <source src="/platform_demo.mp4" type="video/mp4" />
                 Your browser does not support HTML5 video playback.
               </video>
