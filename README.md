@@ -1,4 +1,4 @@
-# ♻️ EcoTrace (Allababa Eco E-Waste Express)
+# ♻️ EcoTrace
 > **AI-Powered Doorstep E-Waste Valuation, Digital Product Passport (DPP), & Circular Supply Chain Traceability Platform**
 
 ---
@@ -126,7 +126,7 @@ The API server will launch at `http://localhost:3000`.
 ## 📂 Repository Structure
 
 ```text
-AllababaEcoEwasteExpress/
+EcoTrace/
 ├── backend/                  # Node.js + Express REST API Server
 │   ├── src/
 │   │   ├── controllers/      # Route controllers (Valuation, Passport, Pickup, etc.)
