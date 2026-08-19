@@ -14,11 +14,9 @@ import { DonorDash } from './pages/DonorDash';
 import { RecyclerDash } from './pages/RecyclerDash';
 import { RecyclerHistoryPage } from './pages/RecyclerHistoryPage';
 import { RecyclerLotsPage } from './pages/RecyclerLotsPage';
-import { AdminPage } from './pages/AdminPage';
 import { ProfileSettingsPage } from './pages/ProfileSettingsPage';
 import { GeoLogisticsPage } from './pages/GeoLogisticsPage';
 import { CommunityEventsHubPage } from './pages/CommunityEventsHubPage';
-import { CommunityAdminPage } from './pages/CommunityAdminPage';
 import { OrganizationAdminPage } from './pages/OrganizationAdminPage';
 import { OnboardingQuestionsModal } from './components/auth/OnboardingQuestionsModal';
 
@@ -26,10 +24,8 @@ function AppContent() {
   const [currentView, setCurrentView] = useState(() => {
     const path = window.location.pathname.replace(/^\//, '').toLowerCase();
     if (path === 'auth' || path === 'login') return 'auth';
-    if (path === 'admin') return 'admin';
     if (path === 'recycler' || path === 'recycler-dash') return 'recycler';
     if (path === 'org-admin' || path === 'partner-admin' || path === 'organization-admin') return 'org-admin';
-    if (path === 'community-admin' || path === 'event-admin') return 'community-admin';
     if (path === 'platform') return 'platform';
     if (path === 'methodology') return 'methodology';
     if (path === 'mission') return 'mission';
@@ -47,19 +43,6 @@ function AppContent() {
   const { currentUser, userRole, logout } = useAuth();
 
   const handleNavigate = (view, data = null) => {
-    // Strict Auto-Logout for Master Admin when navigating away to any other page
-    if ((currentView === 'admin' || userRole === 'admin') && view !== 'admin') {
-      logout();
-    }
-
-    // Strict Auto-Logout for Community Sub-Admin when navigating away to any other page
-    if ((currentView === 'community-admin' || currentView === 'event-admin') && view !== 'community-admin' && view !== 'event-admin') {
-      sessionStorage.removeItem('ecotrace_comm_admin_token');
-      sessionStorage.removeItem('ecotrace_comm_admin_user');
-      localStorage.removeItem('ecotrace_comm_admin_token');
-      localStorage.removeItem('ecotrace_comm_admin_user');
-    }
-
     // Strict Auto-Logout for Organization Sub-Admin when navigating away to any other page
     if ((currentView === 'org-admin' || currentView === 'partner-admin' || currentView === 'organization-admin') && 
         view !== 'org-admin' && view !== 'partner-admin' && view !== 'organization-admin') {
@@ -99,25 +82,24 @@ function AppContent() {
 
   const handleOpenConsumerApp = () => {
     if (currentUser) {
-      if (userRole === 'admin') {
-        handleNavigate('admin');
-      } else if (userRole === 'recycler') {
+      if (userRole === 'recycler') {
         handleNavigate('recycler');
+      } else if (userRole === 'org-admin') {
+        handleNavigate('org-admin');
       } else {
         handleNavigate('donor-dash');
       }
     } else {
-      // Route unauthenticated user directly to the authentication / login page
       handleOpenAuth('login', 'donor');
     }
   };
 
   const handleOpenRecyclerDash = () => {
     if (currentUser) {
-      if (userRole === 'admin') {
-        handleNavigate('admin');
-      } else if (userRole === 'recycler') {
+      if (userRole === 'recycler') {
         handleNavigate('recycler');
+      } else if (userRole === 'org-admin') {
+        handleNavigate('org-admin');
       } else {
         handleNavigate('donor-dash');
       }
@@ -127,10 +109,10 @@ function AppContent() {
   };
 
   const handleLoginSuccess = (role) => {
-    if (role === 'admin') {
-      setCurrentView('admin');
-    } else if (role === 'recycler') {
+    if (role === 'recycler') {
       setCurrentView('recycler');
+    } else if (role === 'org-admin') {
+      setCurrentView('org-admin');
     } else {
       setCurrentView('donor-dash');
     }
@@ -213,12 +195,6 @@ function AppContent() {
         />
       )}
 
-      {(currentView === 'community-admin' || currentView === 'event-admin') && (
-        <CommunityAdminPage
-          onNavigate={handleNavigate}
-        />
-      )}
-
       {(currentView === 'org-admin' || currentView === 'partner-admin' || currentView === 'organization-admin') && (
         <OrganizationAdminPage
           onNavigate={handleNavigate}
@@ -270,12 +246,6 @@ function AppContent() {
         />
       )}
 
-      {currentView === 'admin' && (
-        <AdminPage 
-          onNavigate={handleNavigate}
-        />
-      )}
-
       {(currentView === 'settings' || currentView === 'profile') && (
         <ProfileSettingsPage 
           onNavigate={handleNavigate}
@@ -284,7 +254,7 @@ function AppContent() {
 
       {/* Mandatory First-Time Onboarding Profile & Regional Setup Modal */}
       <OnboardingQuestionsModal 
-        isOpen={Boolean(currentUser && userRole !== 'admin' && currentUser.profileCompleted === false)}
+        isOpen={Boolean(currentUser && currentUser.profileCompleted === false)}
         onComplete={(role) => {
           if (role === 'recycler') {
             setCurrentView('recycler');

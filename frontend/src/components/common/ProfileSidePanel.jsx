@@ -81,8 +81,8 @@ export const ProfileSidePanel = ({ isOpen, onClose, onNavigate, onOpenSupport })
 
   const handleGoToDashboard = () => {
     onClose();
-    if (userRole === 'admin') {
-      onNavigate('admin');
+    if (userRole === 'org-admin' || userRole === 'admin') {
+      onNavigate('org-admin');
     } else if (userRole === 'recycler') {
       onNavigate('recycler');
     } else {

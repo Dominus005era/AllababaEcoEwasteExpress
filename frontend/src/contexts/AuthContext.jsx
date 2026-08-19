@@ -12,52 +12,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkSession = async () => {
-      // 1. High-Security Admin Quarantine:
-      // Admins are NEVER stored in persistent localStorage.
-      // Purge any legacy admin data from localStorage:
-      try {
-        const legacyUser = localStorage.getItem('ecotrace_user');
-        if (legacyUser) {
-          const parsed = JSON.parse(legacyUser);
-          if (parsed?.role === 'admin' || parsed?.email?.includes('admin')) {
-            localStorage.removeItem('ecotrace_user');
-            localStorage.removeItem('ecotrace_token');
-          }
-        }
-      } catch (e) {
-        localStorage.removeItem('ecotrace_user');
-      }
-
-      // Purge legacy sub-admin localStorage entries if present
-      localStorage.removeItem('ecotrace_comm_admin_token');
-      localStorage.removeItem('ecotrace_comm_admin_user');
-      localStorage.removeItem('ecotrace_org_token');
-      localStorage.removeItem('ecotrace_org_user');
-
-      // 2. Check in-memory/tab-only sessionStorage for Super Admin (expires when tab/browser closes)
-      const sessionAdminToken = sessionStorage.getItem('ecotrace_admin_token');
-      const sessionAdminUser = sessionStorage.getItem('ecotrace_admin_user');
-      if (sessionAdminToken && sessionAdminUser) {
-        try {
-          const parsed = JSON.parse(sessionAdminUser);
-          if (parsed?.role === 'admin') {
-            setCurrentUser(parsed);
-            setUserRole('admin');
-            setLoading(false);
-            return;
-          }
-        } catch (e) {
-          sessionStorage.removeItem('ecotrace_admin_token');
-          sessionStorage.removeItem('ecotrace_admin_user');
-        }
-      }
-
-      // 3. For Regular Users (Donors & Recyclers) ONLY: Resume persistent session from localStorage
+      // Resume user session from localStorage
       try {
         const token = localStorage.getItem('ecotrace_token');
         if (token) {
           const data = await authApi.getCurrentUser();
-          if (data.user && data.user.role !== 'admin') {
+          if (data.user) {
             setCurrentUser(data.user);
             setUserRole(data.user.role || 'donor');
             setLoading(false);
@@ -72,10 +32,8 @@ export const AuthProvider = ({ children }) => {
       if (localUser) {
         try {
           const parsed = JSON.parse(localUser);
-          if (parsed.role !== 'admin') {
-            setCurrentUser(parsed);
-            setUserRole(parsed.role || 'donor');
-          }
+          setCurrentUser(parsed);
+          setUserRole(parsed.role || 'donor');
         } catch (e) {}
       }
       setLoading(false);
@@ -84,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     checkSession();
   }, []);
 
-  // 1. Donor Registration with Prototype Mock Fallback
+  // 1. Donor Registration with Prototype Fallback
   const registerDonor = async (email, password, displayName, upiId = '') => {
     try {
       const res = await authApi.registerDonor(email, password, displayName, upiId);
@@ -106,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         upiId: upiId || 'donor@upi',
         district: 'Prayagraj',
         address: 'Room 204, Raman Hostel, MNNIT Campus, Teliarganj, Prayagraj, UP 211004',
-        profileCompleted: false, // Prompts first-time onboarding modal
+        profileCompleted: false,
         createdAt: new Date().toISOString()
       };
       setCurrentUser(mockDonor);
@@ -150,7 +108,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 3. Login User / Recycler (Strict Database Match with Prototype Fallback)
+  // 3. Login User / Recycler / Org Admin
   const loginUser = async (email, password, targetRole = 'donor', cpcbCode = '') => {
     try {
       const res = await authApi.login(email, password, targetRole, cpcbCode);
@@ -164,14 +122,15 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('ecotrace_user', JSON.stringify(user));
       return { success: true, user, role };
     } catch (err) {
-      console.warn('Backend login offline, fallback to mock standalone prototype login:', err.message);
+      console.warn('Backend login offline, fallback to prototype login:', err.message);
       const isRecycler = targetRole === 'recycler';
+      const isOrg = targetRole === 'org-admin';
       const mockUser = {
-        id: isRecycler ? 'AUTH-REC-004' : 'ECO-DNR-4932',
-        email: email || (isRecycler ? 'recycler@greendrop.org' : 'donor@ecotrace.ai'),
-        displayName: isRecycler ? 'Siddharth Shukla' : 'Aarav Sharma',
-        name: isRecycler ? 'Siddharth Shukla' : 'Aarav Sharma',
-        companyName: isRecycler ? 'GreenDrop Circular Metals Ltd' : undefined,
+        id: isRecycler ? 'AUTH-REC-004' : isOrg ? 'ORG-ADM-001' : 'ECO-DNR-4932',
+        email: email || (isRecycler ? 'recycler@greendrop.org' : isOrg ? 'admin@ecotrace.org' : 'donor@ecotrace.ai'),
+        displayName: isRecycler ? 'Siddharth Shukla' : isOrg ? 'Corporate Admin' : 'Aarav Sharma',
+        name: isRecycler ? 'Siddharth Shukla' : isOrg ? 'Corporate Admin' : 'Aarav Sharma',
+        companyName: isRecycler ? 'GreenDrop Circular Metals Ltd' : isOrg ? 'EcoTrace Org' : undefined,
         cpcbLicense: isRecycler ? (cpcbCode || 'CPCB-UP-2026-REC-0891') : undefined,
         role: targetRole,
         district: 'Prayagraj',
@@ -184,44 +143,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('ecotrace_token', 'mock-prototype-token-' + targetRole);
       localStorage.setItem('ecotrace_user', JSON.stringify(mockUser));
       return { success: true, user: mockUser, role: targetRole, isMock: true };
-    }
-  };
-
-  // 4. Super Admin Login (with Master Security Key) - Strictly Ephemeral in sessionStorage
-  const loginAdmin = async (email, password, securityKey = '') => {
-    // Explicitly purge any persistent user or token from localStorage
-    localStorage.removeItem('ecotrace_user');
-    localStorage.removeItem('ecotrace_token');
-
-    try {
-      const res = await authApi.adminLogin(email, password, securityKey);
-      if (res.token) {
-        sessionStorage.setItem('ecotrace_admin_token', res.token);
-      }
-      const user = res.user;
-      setCurrentUser(user);
-      setUserRole('admin');
-      sessionStorage.setItem('ecotrace_admin_user', JSON.stringify(user));
-      return { success: true, user, role: 'admin' };
-    } catch (error) {
-      if ((email.includes('admin') || email === 'admin@ecotrace.gov.in') && 
-          (password === 'EcoTrace#Admin2026!' || password === 'admin123' || password === 'admin') &&
-          (securityKey === 'ECOTRACE-SEC-KEY-2026-X89' || securityKey === '882026' || !securityKey)) {
-        const adminUser = {
-          id: 'admin-001',
-          email: 'admin@ecotrace.gov.in',
-          displayName: 'Platform Super Admin',
-          role: 'admin',
-          securityClearance: 'LEVEL-5-SUPER-ADMIN',
-          createdAt: new Date().toISOString()
-        };
-        setCurrentUser(adminUser);
-        setUserRole('admin');
-        sessionStorage.setItem('ecotrace_admin_token', 'temp-super-admin-session-token');
-        sessionStorage.setItem('ecotrace_admin_user', JSON.stringify(adminUser));
-        return { success: true, user: adminUser, role: 'admin' };
-      }
-      throw error;
     }
   };
 
@@ -243,11 +164,7 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (updatedFields) => {
     const updated = { ...currentUser, ...updatedFields, profileCompleted: true };
     setCurrentUser(updated);
-    if (userRole !== 'admin') {
-      localStorage.setItem('ecotrace_user', JSON.stringify(updated));
-    } else {
-      sessionStorage.setItem('ecotrace_admin_user', JSON.stringify(updated));
-    }
+    localStorage.setItem('ecotrace_user', JSON.stringify(updated));
     try {
       await authApi.updateProfile({ ...updatedFields, profile_completed: true });
     } catch (e) {
@@ -257,19 +174,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    // Clear ephemeral admin tokens and sessions
-    sessionStorage.removeItem('ecotrace_admin_token');
-    sessionStorage.removeItem('ecotrace_admin_user');
-    sessionStorage.removeItem('ecotrace_comm_admin_token');
-    sessionStorage.removeItem('ecotrace_comm_admin_user');
     sessionStorage.removeItem('ecotrace_org_token');
     sessionStorage.removeItem('ecotrace_org_user');
-
-    // Clear persistent user sessions
     localStorage.removeItem('ecotrace_user');
     localStorage.removeItem('ecotrace_token');
-    localStorage.removeItem('ecotrace_comm_admin_token');
-    localStorage.removeItem('ecotrace_comm_admin_user');
     localStorage.removeItem('ecotrace_org_token');
     localStorage.removeItem('ecotrace_org_user');
 
@@ -284,7 +192,6 @@ export const AuthProvider = ({ children }) => {
     registerDonor,
     registerRecycler,
     loginUser,
-    loginAdmin,
     loginWithGoogle,
     updateProfile,
     logout

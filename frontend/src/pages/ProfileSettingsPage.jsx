@@ -384,8 +384,8 @@ export const ProfileSettingsPage = ({ onNavigate }) => {
 
   // Return to Dashboard or Landing based on role
   const handleBackToDashboard = () => {
-    if (userRole === 'admin') {
-      onNavigate('admin');
+    if (userRole === 'org-admin' || userRole === 'admin') {
+      onNavigate('org-admin');
     } else if (userRole === 'recycler') {
       onNavigate('recycler');
     } else {

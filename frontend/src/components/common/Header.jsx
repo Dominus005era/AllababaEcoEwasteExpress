@@ -59,8 +59,8 @@ export const Header = ({ currentView, onNavigate, onOpenConsumerApp, onOpenRecyc
     if (onNavigate) {
       if (userRole === 'recycler') {
         onNavigate('recycler', tabKey);
-      } else if (userRole === 'admin') {
-        onNavigate('admin', tabKey);
+      } else if (userRole === 'org-admin' || userRole === 'admin') {
+        onNavigate('org-admin', tabKey);
       } else {
         onNavigate('donor-dash', tabKey);
       }
@@ -72,8 +72,8 @@ export const Header = ({ currentView, onNavigate, onOpenConsumerApp, onOpenRecyc
   };
 
   const handleDashboardRedirect = () => {
-    if (userRole === 'admin') {
-      onNavigate('admin');
+    if (userRole === 'org-admin' || userRole === 'admin') {
+      onNavigate('org-admin');
     } else if (userRole === 'recycler') {
       onNavigate('recycler');
     } else {
@@ -504,11 +504,11 @@ export const Header = ({ currentView, onNavigate, onOpenConsumerApp, onOpenRecyc
                 ) : (
                   <>
                     <button
-                      onClick={() => { setMobileMenuOpen(false); onNavigate('admin'); }}
+                      onClick={() => { setMobileMenuOpen(false); onNavigate('org-admin'); }}
                       style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', borderRadius: 'var(--radius-md)', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontWeight: '700', fontSize: '0.92rem', cursor: 'pointer', textAlign: 'left' }}
                     >
                       <ShieldCheck size={18} color="#8B5CF6" />
-                      <span>Admin Oversight Matrix</span>
+                      <span>Organization Admin Portal</span>
                     </button>
                   </>
                 )}
