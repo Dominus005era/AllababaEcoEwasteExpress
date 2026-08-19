@@ -5,13 +5,13 @@
 
 ## 📌 Executive Overview
 
-**EcoTrace** is an end-to-end circular economy platform designed to solve electronic waste management challenges across India. It connects individual e-waste donors, corporate organizations, CPCB-authorized smelters, recyclers, and community leaders through a transparent, AI-assisted valuation and Digital Product Passport (DPP) ecosystem.
+**EcoTrace** is an end-to-end circular economy platform designed to solve electronic waste management challenges across India. It connects individual e-waste donors, corporate organizations, and CPCB-authorized smelters and recyclers through a transparent, AI-assisted valuation and Digital Product Passport (DPP) ecosystem.
 
 By leveraging a 4-layer material composition dataset and real-time smelter buyback telemetry, EcoTrace calculates instant monetary valuations for legacy devices while tracking critical carbon offset metrics ($kg\ CO_2$ saved).
 
 ---
 
-## 🌟 Key Features & Portals
+## 🌟 Primary Portals & Roles
 
 ### 1. 📱 E-Waste Donor Portal & Dashboard (`DonorDash.jsx`)
 * **AI Device Scanner & Calculator**: Instant device recognition and value estimation based on weight and material purity.
@@ -29,14 +29,6 @@ By leveraging a 4-layer material composition dataset and real-time smelter buyba
 * **Corporate E-Waste Audits**: Manage multi-branch corporate client accounts, bulk device batches, and compliance reports.
 * **Logistics & Worker Allocation**: Dispatch field workers and supervise pickup depot operations.
 * **Metals Telemetry Analytics**: Aggregated analytics on precious metals yield and compliance verification.
-
-### 4. 🌐 Community Drive Hub & Sub-Admin Panel (`CommunityAdminPage.jsx`)
-* **Green Drive Organization**: Host campus and municipal e-waste collection drives.
-* **Pass Generator & Event Management**: Issue digital participant passes, post announcements, and review green host proposals.
-
-### 5. 🛡️ System Master Admin Dossier (`AdminPage.jsx`)
-* **Global Datasets & Scans Matrix**: Centralized management of Layer 1 (Devices), Layer 2 (Material Profiles), and Layer 3 (Recycler Pricing).
-* **System Health & Audit Logs**: Monitor DPP passport lineage and system component status.
 
 ---
 
@@ -58,12 +50,22 @@ graph TD
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Essential Technology Stack
 
-* **Frontend**: React 18, Vite, Lucide React Icons, Vanilla CSS Design System, Responsive Glassmorphism Architecture.
-* **Backend**: Node.js, Express.js, Zod Schema Validation, CORS.
-* **Database & Services**: Firebase / Firestore, Supabase Client Utilities.
-* **Documentation & Data**: OpenApi 3.0 specification (`openapi.yaml`), CPCB material composition datasets.
+| Category | Technology | Role / Purpose |
+| :--- | :--- | :--- |
+| **Frontend Framework** | **React 18** | Single Page Application (SPA) UI library powering Donor, Recycler, and Org Admin portals. |
+| **Build Tool** | **Vite 5** | High-performance build tool and local development server. |
+| **Icons Suite** | **Lucide React** | SVG icon system used across all 3 user dashboards and modals. |
+| **Maps & Routing** | **Leaflet** | Interactive mapping for doorstep pickup routing and CPCB recycler depot locator. |
+| **Styling & Theme** | **Custom CSS** | Responsive Glassmorphism design system built with CSS variables. |
+| **Backend Runtime** | **Node.js** | Server-side JavaScript execution environment. |
+| **Backend Framework** | **Express.js 5** | RESTful API server handling authentication, pickup queues, and DPP passports. |
+| **Database** | **Google Cloud Firestore** *(Firebase)* | NoSQL document database storing user profiles, pickup requests, datasets, and DPP records. |
+| **Schema Validation** | **Zod** | Type-safe JSON payload validation across API endpoints. |
+| **Valuation Engine** | **Custom 4-Layer Engine** | Calculates live monetary device buyback pricing ($₹$) and CO₂ offset ($kg\ CO_2$). |
+| **Hosting & Deployment** | **Vercel & Render** | Vercel for React SPA frontend hosting; Render for Express REST API backend. |
+| **API Contract** | **OpenAPI 3.0** | REST API endpoint documentation and schema definitions (`openapi.yaml`). |
 
 ---
 
@@ -138,7 +140,7 @@ EcoTrace/
 ├── frontend/                 # React SPA (Vite)
 │   ├── src/
 │   │   ├── components/       # Reusable UI components & modal dialogs
-│   │   ├── pages/            # 12+ Role-based views & Dashboards
+│   │   ├── pages/            # Role-based views & Dashboards (Donor, Recycler, Org Admin)
 │   │   ├── services/         # API integration layer
 │   │   └── styles/           # Global CSS tokens & themes
 │   └── public/               # Public media, icons, and video assets
